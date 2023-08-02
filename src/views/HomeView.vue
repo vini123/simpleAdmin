@@ -1,6 +1,6 @@
 <template>
-  <div class="container">
-    <h1>Custom theme example (on demand)</h1>
+  <div class="container mx-auto">
+    <h1 class="mt-4">Custom theme example (on demand)</h1>
 
     <el-row>
       <el-button @click="onClick">Default</el-button>
