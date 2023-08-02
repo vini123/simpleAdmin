@@ -15,7 +15,10 @@ export default defineConfig({
   css: {
     preprocessorOptions: {
       scss: {
-        additionalData: `@use "@/assets/styles/element.scss" as *;`,
+        additionalData: `
+          @use "@/assets/styles/element.scss";
+          @use "@/assets/styles/element-dark.scss";
+        `,
       },
     },
   },

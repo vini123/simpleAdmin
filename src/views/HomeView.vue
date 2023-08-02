@@ -28,6 +28,11 @@
     </div>
 
     <div>
+      <span @click.stop="toggleDark()">暗黑模式</span>
+      <el-switch size="small" v-model="isDark" />
+    </div>
+
+    <div>
       <el-select>
         <el-option value="test">test</el-option>
       </el-select>
@@ -50,6 +55,11 @@
 
 <script setup lang="ts">
 import { ref } from 'vue'
+
+import { useDark, useToggle } from '@vueuse/core'
+ 
+const isDark = useDark()
+const toggleDark = useToggle(isDark)
 
 const radioVal = ref('New York')
 const switchVal = ref(true)
