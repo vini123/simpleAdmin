@@ -56,12 +56,12 @@ const switchVal = ref(true)
 const sliderVal = ref(50)
 
 function onClick() {
-  // ElNotification({
-  //   type: 'success',
-  //   title: '已成功发送邮件',
-  //   message: '验证码区分大小写，有效期5分钟',
-  //   duration: 3000,
-  // })
+  ElNotification({
+    type: 'success',
+    title: '已成功发送邮件',
+    message: '验证码区分大小写，有效期5分钟',
+    duration: 3000,
+  })
 }
 </script>
 

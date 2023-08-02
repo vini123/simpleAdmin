@@ -22,14 +22,16 @@ export default defineConfig({
   plugins: [
     vue(),
     AutoImport({
-      resolvers: [ElementPlusResolver()],
+      resolvers: [ElementPlusResolver({
+        importStyle: "sass",
+        directives: true
+      })],
     }),
     Components({
       resolvers: [
         ElementPlusResolver({
           importStyle: "sass",
-          useSource: true,
-            directives: true
+          directives: true
         })
       ],
     })
