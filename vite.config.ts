@@ -19,6 +19,7 @@ export default defineConfig({
           @use "@/assets/styles/element.scss";
           @use "@/assets/styles/element-dark.scss";
           @use "@/assets/styles/main.scss";
+          @use "@/assets/styles/preflight.scss";
         `,
       },
     },
