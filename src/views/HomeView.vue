@@ -2,6 +2,14 @@
   <div class="container mx-auto">
     <h1 class="mt-4">Custom theme example (on demand)</h1>
 
+    <div style="font-size: 20px">
+
+      <el-input prefix-icon="IconUser" placeholder="请输入用户名"></el-input>
+      <el-icon> <IconEdit /></el-icon>
+      <el-icon><icon-delete /> </el-icon>
+      <el-icon><SvgIcon :icon="'md:home'" /></el-icon>
+    </div>
+
     <el-row>
       <el-button @click="onClick">Default</el-button>
       <el-button type="primary" @click="onClick">Primary</el-button>
