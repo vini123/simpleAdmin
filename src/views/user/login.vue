@@ -40,7 +40,7 @@ const loading = ref(false)
 // })
 
 function doLogin() {
-    if (!account.value || (!isPhone(account.value && !isEmail(account.value)))) {
+    if (!account.value || (!isPhone(account.value) && !isEmail(account.value))) {
         return ElMessage.error('请输入正确的账号')
     }
 

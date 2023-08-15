@@ -12,8 +12,8 @@
     </div>
 
     <div class="flex ml-auto mr-3">
-        <el-icon v-if="isDark" size="22" @click="doClick"> <IconSunny /></el-icon>
-        <el-icon v-else size="22" @click="doClick"> <IconMoon /></el-icon>
+        <el-icon v-if="isDark" size="22" @click="toggleDark"> <IconSunny /></el-icon>
+        <el-icon v-else size="22" @click="toggleDark"> <IconMoon /></el-icon>
     </div>
 
     <div class="mr-3">
@@ -38,9 +38,11 @@
 <script setup lang="ts">
 import { useApp } from '@/stores/app'
 import { useUser } from '@/stores/user'
-import { useDark } from '@vueuse/core'
+import { useDark, useToggle } from '@vueuse/core'
 
 const isDark = useDark()
+const toggleDark = useToggle(isDark)
+
 const app = useApp()
 const user = useUser()
 
