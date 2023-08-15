@@ -1,4 +1,15 @@
 {
+  "compilerOptions": {
+    "typeRoots": ["./src/typings"]
+  },
+  "include": [
+    "mock/*.ts",
+    "src/**/*.ts",
+    "src/**/*.vue",
+    "src/typings/*.d.ts",
+    "vite.config.ts", 
+    "src/mock/index.js"
+  ],
   "files": [],
   "references": [
     {
