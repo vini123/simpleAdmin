@@ -25,7 +25,7 @@
 </template>
 
 <script setup lang="ts">
-import { computed } from 'vue'
+import { computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router';
 import { useApp } from '@/stores/app'
 import SideBarItem from './SideBarItem.vue'
@@ -44,4 +44,25 @@ const defaultActive = computed(() => {
 const isCollapse = computed(() => {
   return app.collapse === 'true'
 })
+
+onMounted(() => {
+  window.addEventListener('resize', resizeHandler)
+
+  resizeHandler()
+})
+
+onUnmounted(() => {
+  window.removeEventListener('resize', resizeHandler)
+})
+
+function resizeHandler() {
+  if (!document.hidden) {
+    const isPhone:boolean = document.body.getBoundingClientRect().width < 991
+    if (isPhone) {
+      app.setData({collapse: true})
+    } else {
+      app.setData({collapse: false})
+    }
+  }
+}
 </script>
