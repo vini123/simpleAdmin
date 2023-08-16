@@ -1,19 +1,16 @@
 <template>
   <div class="nav-bar">
- 
-    <div class="flex ml-3">
-        <el-icon v-if="app.collapse === 'true'" size="20" @click="doClick">
-            <icon-expand />
-        </el-icon>
-
-        <el-icon v-else size="20" @click="doClick">
-            <icon-fold />
+    <div class="flex ml-3 font-light hamburger">
+        <el-icon :class="{'is-active': app.collapse === 'false'}" size="20" @click="doClick">
+            <SvgIcon :icon="'hamburger'" />
         </el-icon>
     </div>
 
+    <Breadcrumb />
+
     <div class="flex ml-auto mr-3">
-        <el-icon v-if="isDark" size="22" @click="toggleDark"> <IconSunny /></el-icon>
-        <el-icon v-else size="22" @click="toggleDark"> <IconMoon /></el-icon>
+        <el-icon v-if="isDark" size="22" @click="toggleDark()"> <IconSunny /></el-icon>
+        <el-icon v-else size="20" @click="toggleDark()"> <IconMoon /></el-icon>
     </div>
 
     <div class="mr-3">
@@ -39,6 +36,7 @@
 import { useApp } from '@/stores/app'
 import { useUser } from '@/stores/user'
 import { useDark, useToggle } from '@vueuse/core'
+import Breadcrumb from './Breadcrumb.vue'
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
@@ -61,6 +59,13 @@ function logout() {
 </script>
 
 <style lang="scss">
+
+.hamburger {
+    .is-active {
+        transform: rotate(180deg);
+    }
+}
+
 .user-avatar {
     width: 38px;
     height: 38px;

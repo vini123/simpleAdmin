@@ -1,6 +1,6 @@
 <template>
   <div class="side-bar flex flex-col">
-    <div class="w-10 h-[50px]">
+    <div class="w-10 h-[60px]">
       
     </div>
     <el-scrollbar wrap-class="scrollbar-wrapper">

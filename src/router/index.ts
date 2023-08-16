@@ -14,10 +14,10 @@ const routes = [
   }
 ]
 
-const { VITE_WEB_ROUTE, BASE_URL } = import.meta.env;
+const { PROD, BASE_URL } = import.meta.env;
 
 const router = createRouter({
-  history: VITE_WEB_ROUTE === 'true' ? createWebHistory(BASE_URL) : createWebHashHistory(BASE_URL),
+  history: PROD === true ? createWebHistory(BASE_URL) : createWebHashHistory(BASE_URL),
   routes: routes,
   strict: true,
   scrollBehavior(to, from, savedPosition) {

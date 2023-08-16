@@ -1,7 +1,7 @@
 <template>
-  <div>
+  <div v-if="!item?.meta.hidden">
     <el-menu-item v-if="onlyOneChild(item?.children)" :index="item?.path" :class="{'only-grade': onlyGrade(item?.path, item?.children)}">
-      <el-icon v-if="item?.meta.icon" class="flex mr-1"><SvgIcon :icon="`md:${item.meta.icon}`" /></el-icon>
+      <el-icon v-if="item?.meta.icon" class="flex mr-1"><SvgIcon :icon="`${item.meta.icon}`" /></el-icon>
 
       <template #title>
         <span>{{ item?.meta.title }}</span>
@@ -10,7 +10,7 @@
 
     <el-sub-menu v-else :index="item?.path || ''">
       <template #title>
-          <el-icon v-if="item?.meta.icon" class="flex mr-1"><SvgIcon :icon="`md:${item.meta.icon}`" /></el-icon>
+          <el-icon v-if="item?.meta.icon" class="flex mr-1"><SvgIcon :icon="`${item.meta.icon}`" /></el-icon>
 
           <span>{{ item?.meta.title }}</span>
       </template>
@@ -54,7 +54,11 @@ function onlyOneChild(children: AppRoute.Route[] = []) {
   if (children.length === 0) {
     return true
   }
-  return false
+
+  // 只有有一个不是隐藏的，就得渲染父级(因为把隐藏的路由信息都加入侧边栏，才这样做的，要不直接返回 false 就可以了)
+  return children.some((item) => {
+    return item.meta.hidden === true
+  })
 }
 
 function onlyGrade(path:string | undefined, children: AppRoute.Route[] = []):boolean {

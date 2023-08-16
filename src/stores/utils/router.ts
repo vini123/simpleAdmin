@@ -83,9 +83,9 @@ export default function initRoutes(router:Router, menus:Array<any>):Array<AppRou
           delete menu.children
         }
 
-        if (!menu.meta.hidden) {
+        // if (!menu.meta.hidden) {
           routes.push(menu)
-        }
+        // }
         const history = router && router.options && router.options.routes && router.options.routes ? router.options.routes[0] : null
         if (history && history.children && history.children.findIndex(value => value.path === menu.path) !== -1) {
           history.children.push(menu as RouteRecordRaw)
@@ -110,5 +110,8 @@ export default function initRoutes(router:Router, menus:Array<any>):Array<AppRou
         }
     }
     router.addRoute(notFound)
+
+    // 存储 routes
+    sessionStorage.setItem('admin-routes', JSON.stringify(tempRoutes))
     return tempRoutes
 }

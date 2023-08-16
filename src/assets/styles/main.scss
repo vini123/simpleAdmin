@@ -70,6 +70,8 @@ html, body, #app {
             left: 0;
             top: 0;
             box-shadow: 0 1px 4px rgba(0,21,41,.08);
+            background-color: var(--el-bg-color);
+            z-index: 88;
         }
 
         .app-main {

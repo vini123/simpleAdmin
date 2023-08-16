@@ -5,7 +5,7 @@
       <div style="font-size: 20px">
         <el-icon> <IconEdit /></el-icon>
         <el-icon><icon-delete /> </el-icon>
-        <el-icon><SvgIcon :icon="'md:home'" /></el-icon>
+        <el-icon><SvgIcon :icon="'home'" /></el-icon>
       </div>
   
       <el-row>

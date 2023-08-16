@@ -1,6 +1,8 @@
 <template>
 <div>
-  <el-transfer v-if="num%3 == 0" v-model="value" :data="data" class="mb-4" />
+  <div class="px-4 py-4">
+    <el-transfer v-if="num%3 == 0" v-model="value" :data="data" class="mb-4" />
+  </div>
 
   <div v-if="num%2 == 0" class="px-4 py-4">
     <el-table :data="tableData" style="width: 100%">
