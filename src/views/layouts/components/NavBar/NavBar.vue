@@ -8,7 +8,7 @@
 
     <Breadcrumb />
 
-    <div class="ml-auto mr-3" style="width:108px;">
+    <div class="ml-auto mr-4" style="width:108px;">
         <el-select v-model="user.curRole" size="small" placeholder="请选择角色" @change="roleChange">
             <el-option v-for="(item, index) in user.roles" :key="index" :label="item.title" :value="item.name" />
         </el-select>
@@ -18,6 +18,8 @@
         <el-icon v-if="isDark" size="22" @click="toggleDark()"> <IconSunny /></el-icon>
         <el-icon v-else size="20" @click="toggleDark()"> <IconMoon /></el-icon>
     </div>
+
+    <Fullscreen class="flex cursor-pointer mr-3" />
 
     <div class="mr-3">
         <el-dropdown class="avatar-container" trigger="click">
@@ -44,6 +46,7 @@ import { useUser } from '@/stores/user'
 import { setUserRole } from '@/api/user'
 import { useDark, useToggle } from '@vueuse/core'
 import Breadcrumb from './Breadcrumb.vue'
+import Fullscreen from './Fullscreen.vue'
 import router from '../../../../router'
 
 const isDark = useDark()
