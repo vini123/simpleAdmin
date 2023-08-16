@@ -58,12 +58,14 @@ export const useUser = defineStore('user', {
                     if (!res) {
                         return reject('Verification failed, please Login again.')
                     }
-                    const keys:Array<string> = ['id', 'viewid', 'nickname', 'phone', 'avatar', 'email',  'gender', 'signature', 'roles']
+                    const keys:Array<string> = ['id', 'viewid', 'nickname', 'phone', 'avatar', 'email',  'gender', 'signature', 'roles', 'curRole']
                     keys.forEach(key => {
                         if (Object.prototype.hasOwnProperty.call(res, key)) {
                             this.$patch({[key]: res[key]})
                         }
                     });
+
+                    this.$patch({ 'roles': res['roles'] })
 
                     const menus:Array<Record<string, any>> = res.menus || null
                     resolve(menus)

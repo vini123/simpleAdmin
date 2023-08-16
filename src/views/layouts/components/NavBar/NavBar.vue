@@ -8,7 +8,13 @@
 
     <Breadcrumb />
 
-    <div class="flex ml-auto mr-3">
+    <div class="ml-auto mr-3" style="width:108px;">
+        <el-select v-model="user.curRole" size="small" placeholder="请选择角色" @change="roleChange">
+            <el-option v-for="(item, index) in user.roles" :key="index" :label="item.title" :value="item.name" />
+        </el-select>
+    </div>
+
+    <div class="flex cursor-pointer mr-3">
         <el-icon v-if="isDark" size="22" @click="toggleDark()"> <IconSunny /></el-icon>
         <el-icon v-else size="20" @click="toggleDark()"> <IconMoon /></el-icon>
     </div>
@@ -35,8 +41,10 @@
 <script setup lang="ts">
 import { useApp } from '@/stores/app'
 import { useUser } from '@/stores/user'
+import { setUserRole } from '@/api/user'
 import { useDark, useToggle } from '@vueuse/core'
 import Breadcrumb from './Breadcrumb.vue'
+import router from '../../../../router'
 
 const isDark = useDark()
 const toggleDark = useToggle(isDark)
@@ -55,6 +63,14 @@ function doClick() {
 function logout() {
     user.logout()
     location.reload()
+}
+
+function roleChange(value) {
+    console.log('value', value, user.curRole)
+
+    setUserRole({ role: value }).then(() => {
+        router.go(0)
+    })
 }
 </script>
 

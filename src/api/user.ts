@@ -1,12 +1,5 @@
 import request from '@/utils/request'
 
-export function csrfCookie() {
-    return request({
-        url: '/sanctum/csrf-cookie',
-        method: 'get'
-    })
-}
-
 export function getCaptcha(){
     return request({
         url: '/captchas',
@@ -26,6 +19,14 @@ export function register(data:any) {
     return request({
         url: '/register',
         method: 'post',
+        data
+    })
+}
+
+export function setUserRole(data:any) {
+    return request({
+        url: '/roles',
+        method: 'put',
         data
     })
 }
