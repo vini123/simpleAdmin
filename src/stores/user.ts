@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import type { Router } from 'vue-router'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { login as userLogin, getUserInfo } from '@/api/user'
+import { login as userLogin, register as userRegister, getUserInfo } from '@/api/user'
 import { useApp } from './app'
 import initRoutes from './utils/router'
 
@@ -21,7 +21,7 @@ export const useUser = defineStore('user', {
         curRole: ''
     }),
     actions: {
-        login(value:LoginData) {
+        login(value:any) {
             return new Promise((resolve, reject) => {
                 userLogin(value).then((res:Record<string, any>) => {
                     if (res && res['token']) {
@@ -32,6 +32,20 @@ export const useUser = defineStore('user', {
                     resolve('')
                 }).catch(() => {
                     reject('登录失败')
+                })
+            })
+        },
+        register(value:any) {
+            return new Promise((resolve, reject) => {
+                userRegister(value).then((res:Record<string, any>) => {
+                    if (res && res['token']) {
+                        setToken(res['token'])
+                    } else {
+                        reject('注册失败')
+                    }
+                    resolve('')
+                }).catch(() => {
+                    reject('注册失败')
                 })
             })
         },

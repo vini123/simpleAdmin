@@ -9,7 +9,7 @@ const routes = [
     component: () => import('@/views/user/login.vue'),
     hidden: true,
     meta: {
-      title: '登录'
+      title: '登录注册'
     }
   }
 ]
