@@ -1,16 +1,13 @@
 {
   "compilerOptions": {
-    "typeRoots": ["./src/typings"]
+    "paths": {
+			"@/*": ["./src/*"],
+			"~/*": ["./*"]
+		},
+    "typeRoots": ["@/src/typings"]
   },
-  "include": [
-    "mock/*.ts",
-    "src/**/*.ts",
-    "src/**/*.vue",
-    "src/typings/*.d.ts",
-    "vite.config.ts", 
-    "src/mock/index.js"
-  ],
   "files": [],
+  "exclude": ["dist", "node_modules"],
   "references": [
     {
       "path": "./tsconfig.node.json"

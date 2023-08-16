@@ -65,7 +65,7 @@ function logout() {
     location.reload()
 }
 
-function roleChange(value) {
+function roleChange(value:string) {
     console.log('value', value, user.curRole)
 
     setUserRole({ role: value }).then(() => {

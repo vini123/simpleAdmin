@@ -5,17 +5,32 @@ import { login as userLogin, register as userRegister, getUserInfo } from '@/api
 import { useApp } from './app'
 import initRoutes from './utils/router'
 
+interface UserState {
+    token: string;
+    accessAbility: boolean;
+    id: number;
+    viewid: number;
+    nickname: string;
+    phone:string;
+    avatar: string;
+    email: string;
+    gender: number;
+    signature: string;
+    roles: Array<UserRole>;
+    curRole: string;
+}
+
 export const useUser = defineStore('user', {
-    state: () =>({
+    state: (): UserState =>({
         token: getToken(),
         accessAbility: false,
-        id: '',
-        viewid: '',
+        id: 0,
+        viewid: 0,
         nickname: '',
         phone: '',
         avatar: '',
         email: '',
-        gender: '',
+        gender: 0,
         signature: '',
         roles: [],
         curRole: ''
@@ -65,6 +80,15 @@ export const useUser = defineStore('user', {
                         }
                     });
 
+                    const roles:Array<UserRole> = []
+                    for(const item of res['roles']) {
+                        if (item.name && item.title) {
+                            roles.push({
+                                name: item.name,
+                                title: item.title
+                            })
+                        }
+                    }
                     this.$patch({ 'roles': res['roles'] })
 
                     const menus:Array<Record<string, any>> = res.menus || null

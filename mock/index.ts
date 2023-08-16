@@ -6,7 +6,7 @@ export default [
   {
     url: '/api/login',
     method: 'post',
-    response: (options: Mock.MockOption): Mock.MockServiceResult<Token | null> => {
+    response: (options: Mock.MockOption): Mock.MockServiceResult<any> => {
       const { username = undefined, password = undefined } = options.body;
 
       if (!username || !password) {
