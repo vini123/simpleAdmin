@@ -24,8 +24,8 @@
                 </el-form-item>
 
                 <el-form-item class="mt-6">
-                    <el-button v-if="isLogin" type="primary" v-loading="loading"  @click="doLogin(ruleFormRef)">登录</el-button>
-                    <el-button v-else type="primary" v-loading="loading"  @click="doRegister(ruleFormRef)">注册</el-button>
+                    <el-button v-if="isLogin" v-loading="loading" :class="{'w-full': isMini }" type="primary"  @click="doLogin(ruleFormRef)">登录</el-button>
+                    <el-button v-else v-loading="loading" :class="{'w-full': isMini }" type="primary" @click="doRegister(ruleFormRef)">注册</el-button>
                 </el-form-item>
             </el-form>
         </el-card>
