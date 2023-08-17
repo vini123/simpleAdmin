@@ -57,11 +57,11 @@ onUnmounted(() => {
 
 function resizeHandler() {
   if (!document.hidden) {
-    const isPhone:boolean = document.body.getBoundingClientRect().width < 991
+    const isPhone:boolean = document.body.getBoundingClientRect().width < 992
     if (isPhone) {
-      app.setData({collapse: true})
+      app.setData({collapse: true, isPhone})
     } else {
-      app.setData({collapse: false})
+      app.setData({collapse: false, isPhone})
     }
   }
 }

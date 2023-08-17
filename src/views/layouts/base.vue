@@ -1,7 +1,9 @@
 <template>
-  <div class="layout-container" :class="{'sidebar-collapse': app.collapse === 'true'}">
+  <div class="layout-container" :class="{'sidebar-collapse': app.collapse === 'true', 'is-phone': app.isPhone}">
+    <div v-if="app.isPhone && app.collapse === 'false'" class="fixed w-full h-full bg-black/[.5] left-0 top-0 z-[95]" @click="doCollapse"></div>
+
     <SideBar />
-    
+
     <div class="main-container">
       <NavBar />
   
@@ -16,4 +18,8 @@ import NavBar from './components/NavBar/NavBar.vue'
 import AppMain from './components/AppMain/AppMain.vue'
 import { useApp } from '@/stores/app'
 const app = useApp()
+
+function doCollapse() {
+  app.setData({collapse: true})
+}
 </script>
