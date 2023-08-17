@@ -1,7 +1,11 @@
 <template>
   <div class="side-bar flex flex-col">
-    <div class="w-10 h-[60px]">
-      
+    <div class="w-full logo">
+      <router-link class="flex items-center" :class="{'justify-center': isCollapse, 'px-3': !isCollapse }" :title="appTitle" :to="'/'">
+        <img v-if="app.logo" :src="app.logo" :alt="appTitle" />
+        <img v-else :src="logo" :alt="appTitle" />
+        <span v-if="!isCollapse" class="title">{{ appTitle }}</span>
+      </router-link>
     </div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
       <el-menu
@@ -29,6 +33,7 @@ import { computed, onMounted, onUnmounted } from 'vue'
 import { useRoute } from 'vue-router';
 import { useApp } from '@/stores/app'
 import SideBarItem from './SideBarItem.vue'
+import logo from '@/assets/image/logo.png'
 
 const app = useApp()
 const route = useRoute()
@@ -43,6 +48,13 @@ const defaultActive = computed(() => {
 
 const isCollapse = computed(() => {
   return app.collapse === 'true'
+})
+
+const appTitle = computed(():string => {
+  if (app.title) {
+    return app.title
+  }
+  return import.meta.env.VITE_APP_TITLE
 })
 
 onMounted(() => {

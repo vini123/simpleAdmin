@@ -73,6 +73,22 @@ html, body, #app {
         z-index: 99;
         background-color: var(--side-bar-bg-color);
         transition:left 0.3s;
+
+        .logo {
+            img {
+                width: var(--nav-bar-height);
+                height: var(--nav-bar-height);
+            }
+
+            .title {
+                font-size: 16px;
+                color: #ffffffdd;
+                margin-left: 8px;
+                white-space:nowrap;
+                overflow:hidden;
+                text-overflow:ellipsis;
+            }
+        }
     }
 
     .main-container {

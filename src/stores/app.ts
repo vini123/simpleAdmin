@@ -1,9 +1,18 @@
 import { defineStore } from 'pinia'
+interface AppState {
+    collapse: string,
+    isPhone: boolean,
+    logo: string,
+    title: string,
+    menus: Array<AppRoute.Route>
+}
 
 export const useApp = defineStore('app', {
-    state: () =>({
-        collapse: localStorage.getItem('collapse') || false,
+    state: (): AppState =>({
+        collapse: localStorage.getItem('collapse') || 'false',
         isPhone: false,
+        logo: '',
+        title: '',
         menus: [] as Array<AppRoute.Route>
     }),
     actions: {
