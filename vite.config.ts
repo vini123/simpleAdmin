@@ -14,7 +14,8 @@ const pathSrc = path.resolve(__dirname, 'src')
 export default defineConfig({
   base: '/admin',
   build: {
-    outDir: 'admin'
+    outDir: 'admin',
+    emptyOutDir: true
   },
   resolve: {
     alias: {

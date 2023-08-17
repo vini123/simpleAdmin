@@ -41,17 +41,17 @@
 </template>
 
 <script setup lang="ts">
+import { useRouter } from 'vue-router'
 import { useApp } from '@/stores/app'
 import { useUser } from '@/stores/user'
 import { setUserRole } from '@/api/user'
 import { useDark, useToggle } from '@vueuse/core'
 import Breadcrumb from './Breadcrumb.vue'
 import Fullscreen from './Fullscreen.vue'
-import router from '../../../../router'
 
-const isDark = useDark()
+const router = useRouter()
+const isDark = useDark({disableTransition: false})
 const toggleDark = useToggle(isDark)
-
 const app = useApp()
 const user = useUser()
 
