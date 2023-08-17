@@ -17,14 +17,13 @@
 }
 
 html {
-    background-color: var(--el-bg-color-page);
-
     &.dark {
         --side-bar-bg-color: #181818;
         --side-bar-item-bg-color: #181818;
         --side-bar-item-hover-bg-color: #2b2d2e;
         --side-bar-text-color: #bfcbd9;
         
+        // 暗色注意下特殊处理
         .el-switch.is-checked .el-switch__core {
             border-color: transparent;
             background-color: #2b2d2e;
