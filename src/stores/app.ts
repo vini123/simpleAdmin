@@ -5,6 +5,7 @@ interface AppState {
     logo: string,
     title: string,
     menus: Array<AppRoute.Route>
+    routeNames: Array<string>
 }
 
 export const useApp = defineStore('app', {
@@ -13,7 +14,8 @@ export const useApp = defineStore('app', {
         isPhone: false,
         logo: '',
         title: '',
-        menus: [] as Array<AppRoute.Route>
+        menus: [] as Array<AppRoute.Route>,
+        routeNames: [] as Array<string>
     }),
     actions: {
         setData(value:Record<string, any>) {
@@ -29,8 +31,9 @@ export const useApp = defineStore('app', {
                 }
             });
         },
-        setMenu(value:Array<AppRoute.Route>) {
-            this.menus = value
+        setMenu(value:AppRoute.InitRoutesData) {
+            this.menus = value.menus
+            this.routeNames = value.routeNames
         }
     }
 })

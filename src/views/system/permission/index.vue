@@ -7,7 +7,7 @@
       </div>
 
       <el-table :data="tableData" class="w-full mt-5">
-        <el-table-column width="90" label="icon" prop="icon" />
+        <el-table-column width="120" label="icon" prop="icon" />
 
         <el-table-column label="显示名称" prop="title" />
 
@@ -43,21 +43,21 @@
           </template>
         </el-table-column>
 
-        <el-table-column width="60" label="hidden" prop="hidden" />
+        <el-table-column width="120" label="hidden" prop="hidden" />
 
-        <el-table-column width="60" label="keep alive" prop="keep_alive" />
+        <el-table-column width="120" label="keep alive" prop="keep_alive" />
         
-        <el-table-column width="60" label="always show" prop="always_show" />
+        <el-table-column width="120" label="always show" prop="always_show" />
 
         <el-table-column width="60" label="排序" prop="order" />
 
         <el-table-column width="60" label="父 id" prop="parent_id" />
 
-        <el-table-column label="操作" align="center" fixed="right" width="180">
+        <el-table-column label="操作" align="center" fixed="right" width="200">
           <template #default>
-            <el-button size="small" type="text">子权限</el-button>
-            <el-button size="small" type="text">编辑</el-button>
-            <el-button size="small" type="text">删除</el-button>
+            <el-button size="small" type="primary" text>子权限</el-button>
+            <el-button size="small" type="primary" text>编辑</el-button>
+            <el-button size="small" type="primary" text>删除</el-button>
           </template>
         </el-table-column>
       </el-table>

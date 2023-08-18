@@ -17,6 +17,7 @@
 <script setup lang="ts">
 import { ref, watch, onMounted } from 'vue'
 import { useRoute } from 'vue-router'
+import { useApp } from '@/stores/app'
 
 let menus:Array<AppRoute.Route>
 let breadcrumbs = ref<Array<AppRoute.Route>>([])
@@ -36,10 +37,7 @@ function getBreadcrumb() {
     }
 
     if (!menus) {
-        const routes:string | null = sessionStorage.getItem('admin-routes')
-        if (routes) {
-            menus =  JSON.parse(routes) as Array<AppRoute.Route>
-        }
+        menus = (useApp()).menus
     }
 
     // 搞了五层，按场景一般不会超过 3 层，循环 5 存已足够了的。

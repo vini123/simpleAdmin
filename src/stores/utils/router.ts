@@ -4,8 +4,9 @@ const BasicLayout = () => import('@/views/layouts/base.vue')
 const IframeLayout = () => import('@/views/layouts/iframe.vue')
 
 // 菜单的顺序，服务端已经先整理好了。当然 / 必须是第一个路由
-export default function initRoutes(router:Router, menus:Array<any>):Array<AppRoute.Route> {
+export default function initRoutes(router:Router, menus:Array<any>):AppRoute.InitRoutesData {
     const tempRoutes: Array<AppRoute.Route> = []
+    const tempNames: Array<string> = []
     const index = menus.findIndex((item) => item.path === '/')
     if (index == -1) {
       menus.unshift({
@@ -64,7 +65,7 @@ export default function initRoutes(router:Router, menus:Array<any>):Array<AppRou
             keepAlive: item.keep_alive ? true : false,
             link: item.link ?? '',
             iframe: item.iframe ?? '',
-            activePath: item.active_path ?? null,
+            activePath: prefix ?? null,
           },
           children: []
         }
@@ -83,9 +84,9 @@ export default function initRoutes(router:Router, menus:Array<any>):Array<AppRou
           delete menu.children
         }
 
-        // if (!menu.meta.hidden) {
-          routes.push(menu)
-        // }
+        routes.push(menu)
+        tempNames.push(item.name)
+
         const history = router && router.options && router.options.routes && router.options.routes ? router.options.routes[0] : null
         if (history && history.children && history.children.findIndex(value => value.path === menu.path) !== -1) {
           history.children.push(menu as RouteRecordRaw)
@@ -111,7 +112,5 @@ export default function initRoutes(router:Router, menus:Array<any>):Array<AppRou
     }
     router.addRoute(notFound)
 
-    // 存储 routes
-    sessionStorage.setItem('admin-routes', JSON.stringify(tempRoutes))
-    return tempRoutes
+    return { menus: tempRoutes, routeNames: tempNames }
 }
