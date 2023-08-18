@@ -25,7 +25,11 @@ export default function initRoutes(router:Router, menus:Array<any>):AppRoute.Ini
         const path = prefix + item.path
         let redirect = item.redirect
         if (!item.redirect && item.children && item.children.length > 0) {
-          redirect = path + item.children[0]['path']
+          if (path === '/') {
+            redirect = path + item.children[0]['path']
+          } else {
+            redirect = path + '/' + item.children[0]['path']
+          }
         }
 
         let component;
@@ -52,6 +56,12 @@ export default function initRoutes(router:Router, menus:Array<any>):AppRoute.Ini
           }
         }
 
+        let activePath;
+        if (item.active_path) {
+          activePath = item.active_path
+        } else {
+          activePath = (item.children && item.children.length > 0) && prefix ? prefix : undefined
+        }
         const menu: AppRoute.Route = {
           path: path,
           name: item.name,
@@ -65,12 +75,12 @@ export default function initRoutes(router:Router, menus:Array<any>):AppRoute.Ini
             keepAlive: item.keep_alive ? true : false,
             link: item.link ?? '',
             iframe: item.iframe ?? '',
-            activePath: prefix ?? null,
+            activePath: activePath
           },
           children: []
         }
 
-        // 额外处理
+        // 非一直显示
         if (item.children && item.children.length == 1 && !item.children[0]['always_show']) {
           item.children[0]['active_path'] = item.path
           menu.meta.title = item.children[0]['title']
@@ -112,5 +122,6 @@ export default function initRoutes(router:Router, menus:Array<any>):AppRoute.Ini
     }
     router.addRoute(notFound)
 
+    console.log(router.getRoutes())
     return { menus: tempRoutes, routeNames: tempNames }
 }

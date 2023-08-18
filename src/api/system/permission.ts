@@ -7,3 +7,11 @@ export function getPermissions(data:any) {
         params: data
     })
 }
+
+export function updatePermissionsOrders(data:any) {
+    return request({
+        url: '/permissions/orders',
+        method: 'put',
+        data: data
+    })
+}
