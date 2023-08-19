@@ -8,3 +8,6 @@ declare interface PaginateReq {
 declare interface ParentPaginateReq extends PaginateReq {
     parent_id?: number
 }
+
+// 数字 boolean 型
+declare type NumberBoolean = 0 | 1

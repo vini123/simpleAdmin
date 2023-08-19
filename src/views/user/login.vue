@@ -145,14 +145,7 @@ function doLogin(formEl: FormInstance | undefined) {
     if (!formEl) return
 
     formEl.validate((valid) => {
-        if (!valid) {
-            ElNotification({
-                type: 'error',
-                title: '',
-                message: '请填写正确的信息',
-                duration: 3000,
-            })
-        } else {
+        if (valid) {
             fetch()
         }   
     })

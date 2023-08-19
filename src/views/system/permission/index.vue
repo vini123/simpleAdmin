@@ -2,7 +2,7 @@
   <div class="px-4 py-4">
     <el-card shadow="never" class="border-none">
     <div class="flex items-center">
-      <el-button v-if="includes(app.routeNames, ['permission.create'])" type="primary" size="small"> 添加</el-button>
+      <el-button v-if="includes(app.routeNames, ['permission.create'])" type="primary" size="small" @click="goCreate"> 添加</el-button>
       <el-button v-if="req.parent_id" class="ml-3"  type="primary" size="small" @click="goBack">返回上一级</el-button>
 
       <span class="ml-auto"></span>
@@ -76,8 +76,8 @@
       <el-table-column label="操作" align="center" fixed="right" width="200">
         <template #default="scope">
           <el-button size="small" type="primary" text @click="goSon(scope.row)">子权限</el-button>
-          <el-button v-if="app.routeNames.includes('permission.edit')" size="small" type="primary" text>编辑</el-button>
-          <el-button v-if="app.routeNames.includes('permission.delete')" size="small" type="primary" text>删除</el-button>
+          <el-button v-if="app.routeNames.includes('permission.edit')" link size="small" type="primary" text>编辑</el-button>
+          <el-button v-if="app.routeNames.includes('permission.delete')" link size="small" type="primary" text>删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -225,21 +225,33 @@ const initDropTable = () => {
   }
 
   if(dragTable.value){
-    const el = dragTable.value.$el.querySelector('.el-table__body tbody')
-    Sortable.create(el, {
-      handle: '.drag-btn',
-      animation: 300,
-      onEnd: ({ newIndex, oldIndex }) => {
-        const data:Array<any> = tableData.value.concat()
-        const currRow = data.splice(oldIndex, 1)[0];
-        data.splice(newIndex, 0, currRow);
+    const el: HTMLElement | null = document.querySelector(".el-table__body tbody");
+    if (el) {
+      Sortable.create(el, {
+        handle: '.drag-btn',
+        animation: 300,
+        onEnd: ({ newIndex, oldIndex }) => {
+          if (typeof newIndex === 'number' && typeof oldIndex === 'number') {
+            const data:Array<any> = tableData.value.concat()
+            const currRow = data.splice(oldIndex, 1)[0];
+            data.splice(newIndex, 0, currRow);
 
-        tableData.value = []
-        nextTick(() => {
-          tableData.value = data
-        })
-      }
-    })
+            tableData.value = []
+            nextTick(() => {
+              tableData.value = data
+            })
+          }
+        }
+      })
+    }
+  }
+}
+
+function goCreate() {
+  if (req.parent_id) {
+    router.push({name: 'permission.create', query: { parent_id: req.parent_id}})
+  } else {
+    router.push({name: 'permission.create'})
   }
 }
 
