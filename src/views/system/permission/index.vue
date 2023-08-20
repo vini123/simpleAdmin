@@ -76,8 +76,8 @@
       <el-table-column label="操作" align="center" fixed="right" width="200">
         <template #default="scope">
           <el-button size="small" type="primary" text @click="goSon(scope.row)">子权限</el-button>
-          <el-button v-if="app.routeNames.includes('permission.edit')" link size="small" type="primary" text>编辑</el-button>
-          <el-button v-if="app.routeNames.includes('permission.delete')" link size="small" type="primary" text>删除</el-button>
+          <el-button v-if="app.routeNames.includes('permission.edit')" link size="small" type="primary" text @click="goEdit(scope.row)">编辑</el-button>
+          <el-button v-if="app.routeNames.includes('permission.delete')" link size="small" type="primary" text @click="goDelete(scope.row)">删除</el-button>
         </template>
       </el-table-column>
     </el-table>
@@ -92,7 +92,7 @@
 import { ref, reactive, watch, onBeforeMount, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { useApp } from '@/stores/app'
-import { getPermissions, updatePermissionsOrders as updateOrders } from '@/api/system/permission'
+import { getPermissions, updatePermissionsOrders as updateOrders, deletePermissions } from '@/api/system/permission'
 import { includes } from '@/utils/utils'
 import Sortable from 'sortablejs'
 
@@ -262,6 +262,47 @@ function goBack():void {
 function goSon(value:any):void {
   if (value && value.id) {
     router.push({name: 'permission.index', query: { parent_id: value.id}})
+  }
+}
+
+function goEdit(value:any):void {
+  if (value && value.id) {
+    router.push({name: 'permission.edit', query: { id: value.id}})
+  }
+}
+
+function goDelete(value:any):void {
+  if (value && value.id) {
+    ElMessageBox.confirm(
+      '删除权限，子权限也会一起删除。确认删除吗？',
+      '',
+      {
+        confirmButtonText: '确定',
+        cancelButtonText: '取消',
+        type: 'warning',
+      }
+    ).then(() => {
+      if (loading.value) {
+        return
+      }
+
+      loading.value = true
+
+      deletePermissions({id: value.id}).then(() => {
+        loading.value = false
+
+        ElNotification({
+            type: 'success',
+            title: '',
+            message: '权限已删除',
+            duration: 3000,
+        })
+
+        window.location.reload()
+      })
+    }).catch(() => {
+
+    })
   }
 }
 </script>

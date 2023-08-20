@@ -70,7 +70,7 @@ import { ref, reactive, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
-import { getPermissions, createPermissions } from '@/api/system/permission'
+import { getPermissions, getPermission, createPermissions } from '@/api/system/permission'
 
 interface PermissionItem {
     id: number
@@ -91,6 +91,7 @@ interface RuleForm {
     iframe?: string
     redirect?: string
     parent_id: number
+    id: number
 }
 
 const loading = ref<boolean>(false)
@@ -107,7 +108,8 @@ const initialForm = ():RuleForm => ({
     link: '',
     iframe: '',
     redirect: '',
-    parent_id: 0
+    parent_id: 0,
+    id: 0
 })
 
 const ruleForm = reactive<RuleForm>(initialForm())
@@ -121,13 +123,13 @@ const route:RouteLocationNormalizedLoaded = useRoute()
 const router = useRouter()
 
 onMounted(function() {
-    if (route && route.query && route.query.parent_id) {
-        if (typeof route.query.parent_id === 'string') {
-            ruleForm.parent_id =  parseInt(route.query.parent_id)
+    if (route && route.query && route.query.id) {
+        if (typeof route.query.id === 'string') {
+            ruleForm.id =  parseInt(route.query.id)
+
+            initializeData()
         }
     }
-
-    runderPermissions()
 })
 
 const rules = reactive<FormRules<RuleForm>>({
@@ -244,31 +246,15 @@ function submitPermission() {
         loading.value = true
 
         const data = { ... ruleForm }
-        for(const key in data) {
-            if (isValidKey(key, data)) {
-                if (data[key] === '') {
-                    delete data[key]
-                }
-
-                if (key === 'parent_id' && data[key] === 0) {
-                    delete data[key]
-                }
-            }
-        }
-
         createPermissions(data).then(() => {
             loading.value = false
 
-            // Object.assign(ruleForm, initialForm())
-            // runderPermissions()
-            
             ElNotification({
                 type: 'success',
                 title: '',
-                message: '权限已创建,将刷新浏览器',
+                message: '权限已更新,将刷新浏览器',
                 duration: 3000,
             })
-
 
             setTimeout(() => {
                 window.location.reload()
@@ -279,7 +265,7 @@ function submitPermission() {
             ElNotification({
                 type: 'error',
                 title: '',
-                message: '创建权限失败',
+                message: '权限更新失败',
                 duration: 3000,
             })
         })
@@ -290,17 +276,29 @@ function goBack() {
     router.back()
 }
 
-function isValidKey(key: string | number | symbol,object: object): key is keyof typeof object {
-    return key in object;
-}
-
 function parentIdChange(value:number) {
     ruleForm.parent_id = value
 }
 
-function runderPermissions() {
+function initializeData() {
     loading.value = true
 
+    getPermission(ruleForm.id).then((res:Record<string, any>) => {
+        const whiteList:string[] = ['title', 'name', 'path', 'icon', 'hidden', 'keep_alive', 'always_show', 'component', 'link', 'iframe', 'redirect', 'parent_id']
+        for(const key in res) {
+            if (!whiteList.includes(key)) {
+                delete res[key]
+            }
+        }
+        Object.assign(ruleForm, res)
+
+        runderPermissions()
+    }).catch(() => {
+
+    })
+}
+
+function runderPermissions() {
     const menus: Array<PermissionItem> = []
     let level = 0
     let parentId = -1
@@ -317,7 +315,7 @@ function runderPermissions() {
         })
 
         permissionList.value = menus
-         
+
         nextTick(() => {
             loading.value = false
         })
