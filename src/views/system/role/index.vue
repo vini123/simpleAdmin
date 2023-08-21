@@ -1,11 +1,11 @@
 <template>
     <div class="px-4 py-4">
       <el-card v-if="initialized" shadow="never" class="border-none">
-      <div v-if="includes(app.routeNames, ['role.create'])" class="flex items-center">
+      <div v-if="includes(app.routeNames, ['role.create'])" class="flex items-center mb-5">
         <el-button type="primary" size="small" @click="goCreate">添加</el-button>
       </div>
   
-      <el-table v-loading="loading" :data="tableData" class="w-full mt-5">
+      <el-table v-loading="loading" :data="tableData" class="w-full">
         
         <el-table-column label="名称" prop="name" />
 
