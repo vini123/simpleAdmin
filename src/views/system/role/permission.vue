@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-4">
-        <el-card v-loading="loading" shadow="never" class="border-none mb-[72px]">
+        <el-card v-if="initialized" v-loading="loading" shadow="never" class="border-none mb-[72px]">
             <el-tree
                 ref="tree"
                 show-checkbox
@@ -36,12 +36,14 @@ import { useRoute, useRouter } from 'vue-router'
 // import { ElTree } from 'element-plus'
 import { getRolePermissions, setRolePermissions } from '@/api/system/role'
 
+const initialized = ref<boolean>(false)
+
+const loading = ref<boolean>(false)
+
 const defaultProps = {
   children: 'childs',
   label: 'title',
 }
-
-const loading = ref<boolean>(false)
 
 // const tree = ref<InstanceType<typeof ElTree>>()
 const tree = ref()
@@ -76,6 +78,8 @@ function initializeData() {
 
         loading.value = false
 
+        initialized.value = true
+        
         nodeExpand()
 
     }).catch(() => {

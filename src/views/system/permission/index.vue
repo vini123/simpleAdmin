@@ -1,13 +1,13 @@
 <template>
   <div class="px-4 py-4">
-    <el-card shadow="never" class="border-none">
-    <div class="flex items-center">
+    <el-card v-if="initialized" shadow="never" class="border-none">
+    <div v-if="includes(app.routeNames, ['permission.create', 'permission.edit'])" class="flex items-center">
       <el-button v-if="includes(app.routeNames, ['permission.create'])" type="primary" size="small" @click="goCreate"> 添加</el-button>
       <el-button v-if="req.parent_id" class="ml-3"  type="primary" size="small" @click="goBack">返回上一级</el-button>
 
       <span class="ml-auto"></span>
 
-      <el-button v-if="includes(app.routeNames, ['permission.create', 'permission.edit']) && sorted" v-loading="loading" type="primary" @click="updatePermissionsOrders">保存排序</el-button>
+      <el-button v-if="includes(app.routeNames, ['permission.edit']) && sorted" v-loading="loading" type="primary" @click="updatePermissionsOrders">保存排序</el-button>
     </div>
 
     <el-table v-loading="loading" :data="tableData"  ref="dragTable" class="w-full mt-5">
@@ -96,6 +96,8 @@ import { getPermissions, updatePermissionsOrders as updateOrders, deletePermissi
 import { includes } from '@/utils/utils'
 import Sortable from 'sortablejs'
 
+const initialized = ref<boolean>(false)
+
 const route = useRoute()
 
 const router = useRouter()
@@ -180,6 +182,8 @@ function fetchData() {
     }
 
     total.value = res.total
+
+    initialized.value = true
   }).catch(() => {
     loading.value = false
   })

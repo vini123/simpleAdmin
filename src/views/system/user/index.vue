@@ -1,36 +1,35 @@
 <template>
     <div class="px-4 py-4">
-      <el-card shadow="never" class="border-none">
+      <el-card v-if="initialized" v-loading="loading" shadow="never" class="border-none">
       <div class="flex items-center">
         <el-input v-model="req.phone" class="ml-auto mr-2 w-[150px]" placeholder="请输入手机号码" />
         <el-button type="primary" @click="fetchData">搜索</el-button>
       </div>
   
-      <el-table v-loading="loading" :data="tableData" class="w-full mt-5">
-        
-        <el-table-column label="头像" prop="avatar">
+      <el-table :data="tableData" class="w-full mt-5">
+        <el-table-column label="头像" prop="avatar" width="80">
           <template #default="scope">
             <el-avatar :size="50" :src="scope.row.avatar" />
           </template>
         </el-table-column>
 
-        <el-table-column label="Id" prop="viewid" />
+        <el-table-column label="Id" prop="viewid" width="120" />
 
         <el-table-column label="昵称" prop="nickname" />
 
-        <el-table-column label="注册来源" prop="referer_str" />
+        <el-table-column label="注册来源" prop="referer_str" width="120" />
 
-        <el-table-column label="性别" prop="gender_str" />
+        <el-table-column label="性别" prop="gender_str" width="80" />
 
-        <el-table-column label="手机号码" prop="phone" />
+        <el-table-column label="手机号码" prop="phone" width="150" />
 
-        <el-table-column label="微信" prop="wechat" />
+        <el-table-column label="微信" prop="wechat" width="150" />
 
         <el-table-column label="邮箱" prop="email" />
 
         <el-table-column label="cid" prop="cid" />
 
-        <el-table-column label="注册 ip" prop="register_ip" />
+        <el-table-column label="注册 ip" prop="register_ip" width="150" />
 
         <el-table-column label="签名" prop="signature">
           <template #default="scope">
@@ -68,12 +67,14 @@
     phone?: number
   }
 
+  const initialized = ref<boolean>(false)
+  
+  const loading = ref<boolean>(false)
+
   const router = useRouter()
 
   const app = useApp()
   
-  const loading = ref<boolean>(false)
-    
   const total = ref<number>(0)
   
   const req = reactive<UserReq>({
@@ -103,13 +104,15 @@
     }
 
     getUsers(data).then((res:Record<string, any>) => {
-      loading.value = false
-  
       if (res && res.data) {
         tableData.value = res.data
       }
-  
+      
       total.value = res.total
+      
+      loading.value = false
+
+      initialized.value = true
     }).catch(() => {
       loading.value = false
     })

@@ -1,8 +1,8 @@
 <template>
     <div class="px-4 py-4">
-      <el-card shadow="never" class="border-none">
-      <div class="flex items-center">
-        <el-button v-if="includes(app.routeNames, ['role.create'])" type="primary" size="small" @click="goCreate">添加</el-button>
+      <el-card v-if="initialized" shadow="never" class="border-none">
+      <div v-if="includes(app.routeNames, ['role.create'])" class="flex items-center">
+        <el-button type="primary" size="small" @click="goCreate">添加</el-button>
       </div>
   
       <el-table v-loading="loading" :data="tableData" class="w-full mt-5">
@@ -38,12 +38,14 @@
   import { getRoles, deleteRoles } from '@/api/system/role'
   import { includes } from '@/utils/utils'
 
+  const initialized = ref<boolean>(false)
+
+  const loading = ref<boolean>(false)
+
   const router = useRouter()
   
   const app = useApp()
   
-  const loading = ref<boolean>(false)
-    
   const total = ref<number>(0)
   
   const req = reactive<PaginateReq>({
@@ -68,13 +70,15 @@
   
     const data = { ... req }
     getRoles(data).then((res:Record<string, any>) => {
-      loading.value = false
-  
       if (res && res.data) {
         tableData.value = res.data
       }
   
       total.value = res.total
+
+      loading.value = false
+
+      initialized.value = true
     }).catch(() => {
       loading.value = false
     })
@@ -115,6 +119,8 @@
   
         deleteRoles({id: value.id}).then(() => {
           loading.value = false
+
+          fetchData()
   
           ElNotification({
               type: 'success',
@@ -123,8 +129,6 @@
               duration: 3000,
           })
         })
-
-        fetchData()
       }).catch(() => {
         
       })

@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-4">
-        <el-card v-loading="loading" shadow="never" class="border-none">
+        <el-card v-if="initialized" v-loading="loading" shadow="never" class="border-none">
             <div class="text-base mb-4">
                 <span>给</span>
                 <span class="font-medium">{{ nickname }}</span>
@@ -23,11 +23,13 @@
 </template>
 
 <script setup lang="ts">
-import { ref, onMounted, computed } from 'vue'
+import { ref, onMounted } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import { getUserRoles, setUserRoles } from '@/api/system/user'
-import type { CheckboxValueType } from 'element-plus/es/components/index.js';
+import type { CheckboxValueType } from 'element-plus';
+
+const initialized = ref<boolean>(false)
 
 const loading = ref<boolean>(false)
 
@@ -58,7 +60,7 @@ onMounted(function() {
 })
 
 function checkChangeHandler(value:Array<CheckboxValueType>):void {
-    checkedIds.value = value
+    checkedIds.value = value as Array<number>
 
     calcIndeterminate()
 }
@@ -100,6 +102,8 @@ function initializeData() {
         calcIndeterminate()
 
         loading.value = false
+
+        initialized.value = true
     }).catch(() => {
 
     })
