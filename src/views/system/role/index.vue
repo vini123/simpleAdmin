@@ -16,11 +16,11 @@
         <el-table-column label="更新时间" prop="updated_at" />
   
   
-        <el-table-column label="操作" align="center" fixed="right" width="200">
+        <el-table-column v-if="includes(app.routeNames, ['role.permission', 'role.edit', 'role.delete'])" label="操作" align="center" fixed="right" width="200">
           <template #default="scope">
-            <el-button v-if="app.routeNames.includes('role.permission')" size="small" type="primary" text @click="goSet(scope.row)">设置权限</el-button>
-            <el-button v-if="app.routeNames.includes('role.edit')" link size="small" type="primary" text @click="goEdit(scope.row)">编辑</el-button>
-            <el-button v-if="app.routeNames.includes('role.delete')" link size="small" type="primary" text @click="goDelete(scope.row)">删除</el-button>
+            <el-button v-if="includes(app.routeNames, ['role.permission'])" size="small" type="primary" text @click="goSet(scope.row)">设置权限</el-button>
+            <el-button v-if="includes(app.routeNames, ['role.edit'])" link size="small" type="primary" text @click="goEdit(scope.row)">编辑</el-button>
+            <el-button v-if="includes(app.routeNames, ['role.delete'])" link size="small" type="primary" text @click="goDelete(scope.row)">删除</el-button>
           </template>
         </el-table-column>
       </el-table>

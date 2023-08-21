@@ -43,6 +43,12 @@
         </el-table-column>
 
         <el-table-column label="创建时间" prop="created_at" />
+
+        <el-table-column v-if="includes(app.routeNames, ['user.role'])" label="操作" align="center" fixed="right" width="200">
+          <template #default="scope">
+            <el-button v-if="includes(app.routeNames, ['user.role'])" size="small" type="primary" text @click="goSet(scope.row)">设置角色</el-button>
+          </template>
+        </el-table-column>
       </el-table>
   
       <el-pagination class="mt-5" background hide-on-single-page layout="prev, pager, next" :total="total" :page-size="req.limit" v-model:current-page="req.page" @current-change="fetchData" />
@@ -53,6 +59,7 @@
   
   <script setup lang="ts">
   import { ref, reactive, onBeforeMount } from 'vue'
+  import { useRouter } from 'vue-router'
   import { useApp } from '@/stores/app'
   import { getUsers } from '@/api/system/user'
   import { includes } from '@/utils/utils'
@@ -60,6 +67,8 @@
   interface UserReq extends PaginateReq {
     phone?: number
   }
+
+  const router = useRouter()
 
   const app = useApp()
   
@@ -105,4 +114,10 @@
       loading.value = false
     })
   }
-  </script>
+
+function goSet(value:any):void {
+  if (value && value.id) {
+    router.push({name: 'user.role', query: { user_id: value.id}})
+  }
+}
+</script>
