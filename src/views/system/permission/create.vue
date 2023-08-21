@@ -70,7 +70,7 @@ import { ref, reactive, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
-import { getPermissions, createPermissions } from '@/api/system/permission'
+import { getPermissions, createOrUpdatePermissions } from '@/api/system/permission'
 
 interface PermissionItem {
     id: number
@@ -256,7 +256,7 @@ function submitPermission() {
             }
         }
 
-        createPermissions(data).then(() => {
+        createOrUpdatePermissions(data).then(() => {
             loading.value = false
 
             // Object.assign(ruleForm, initialForm())

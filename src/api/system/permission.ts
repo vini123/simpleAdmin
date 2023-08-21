@@ -15,7 +15,7 @@ export function getPermission(id:number) {
     })
 }
 
-export function createPermissions(data:any) {
+export function createOrUpdatePermissions(data:any) {
     return request({
         url: '/permissions',
         method: 'post',

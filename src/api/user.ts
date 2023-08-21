@@ -25,7 +25,7 @@ export function register(data:any) {
 
 export function setUserRole(data:any) {
     return request({
-        url: '/roles',
+        url: '/user/roles',
         method: 'put',
         data
     })

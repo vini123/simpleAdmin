@@ -7,7 +7,8 @@
     --side-bar-width: 220px;
     --nav-bar-height: 60px;
     --side-bar-bg-color: #304156;
-    --side-bar-item-bg-color: #1f2d3d;
+    // --side-bar-item-bg-color: #1f2d3d;
+    --side-bar-item-bg-color: #304156;
     --side-bar-item-hover-bg-color: #001528;
     --side-bar-text-color: #bfcbd9;
 
@@ -47,6 +48,10 @@ html {
 
 html, body, #app {
     height: 100%;
+}
+
+.el-bg-color {
+    background-color: var(--el-bg-color);
 }
 
 // 布局
