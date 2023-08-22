@@ -10,7 +10,7 @@
                     <div class="relative cursor-pointer w-[100px] h-[100px]" @click="editAvatar">
                         <el-avatar :src="form.avatar" :size="100" class="border-white border-2 border-solid" />
 
-                        <div class="flex items-center justify-center w-[100px] h-[100px] pt-8 text-white bg-black/30 rounded-full absolute left-0 top-0">
+                        <div class="flex items-center justify-center w-[100px] h-[100px] pt-8 text-white bg-black/40 rounded-full absolute left-0 top-0">
                             <el-icon><icon-edit /></el-icon>
                             <span class="text-sm ml-1">编辑</span>
                         </div>
@@ -147,29 +147,3 @@ function goBack() {
     router.back()
 }
 </script>
-
-<style lang="scss" scoped>
-// .avatar {
-//   position: relative;
-//   width: 100px;
-//   cursor: pointer;
-
-//   .el-avatar {
-//     border: 2px solid #fff;
-//   }
-
-//   .el-icon-edit {
-//     display: flex;
-//     justify-content: center;
-//     width: 100px;
-//     height: 100px;
-//     border-radius: 50%;
-//     position: absolute;
-//     top: 0;
-//     color: #fff;
-//     background-color: rgba(0, 0, 0, 0.3);
-//     padding-top: 70px;
-//     cursor: default;
-//   }
-// }
-</style>
