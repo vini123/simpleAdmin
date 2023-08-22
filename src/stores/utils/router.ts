@@ -122,6 +122,5 @@ export default function initRoutes(router:Router, menus:Array<any>):AppRoute.Ini
     }
     router.addRoute(notFound)
 
-    console.log(router.getRoutes())
     return { menus: tempRoutes, routeNames: tempNames }
 }

@@ -23,9 +23,11 @@ let menus:Array<AppRoute.Route>
 let breadcrumbs = ref<Array<AppRoute.Route>>([])
 
 const route = useRoute()
-watch(route, () => {
-    getBreadcrumb()
-}, { immediate: true })
+watch(
+    () => route.path,
+    () => { getBreadcrumb() },
+    { deep: true }
+)
 
 onMounted(() => {
     getBreadcrumb()

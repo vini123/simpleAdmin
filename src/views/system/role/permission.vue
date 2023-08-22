@@ -1,6 +1,12 @@
 <template>
     <div class="px-4 py-4">
         <el-card v-if="initialized" v-loading="loading" shadow="never" class="border-none mb-[72px]">
+            <div class="text-base mb-4">
+                <span>给</span>
+                <span class="font-medium">{{ role }}</span>
+                <span>分配权限</span>
+            </div>
+
             <el-tree
                 ref="tree"
                 show-checkbox
@@ -23,7 +29,7 @@
             </el-tree>
         </el-card>
 
-        <div class="flex items-center justify-end w-full h-[72px] fixed right-0 bottom-0 z-10 pr-[72px] shadow el-bg-color">
+        <div class="flex items-center justify-end w-full h-[72px] fixed right-0 bottom-0 z-10 pr-[36px] shadow el-bg-color">
             <el-button v-loading="loading" type="primary" @click="submitPermission">提交</el-button>
             <el-button @click="goBack">返回</el-button>
         </div>
@@ -47,6 +53,8 @@ const defaultProps = {
 
 // const tree = ref<InstanceType<typeof ElTree>>()
 const tree = ref()
+
+const role = ref<string>('')
 
 const permissions = ref([])
 
@@ -73,6 +81,8 @@ function initializeData() {
 
     getRolePermissions({id: roleId.value}).then((res:Record<string, any>) => {
         permissions.value = res.permissions
+        
+        role.value = res.role
 
         checkedIds.value = res.checkedIds
 

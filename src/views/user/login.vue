@@ -14,7 +14,7 @@
                 </el-form-item>
 
                 <el-form-item label="密码" prop="password">
-                    <el-input type="password" v-model="ruleForm.password" placeholder="请输入密码（11111111）" clearable />
+                    <el-input type="password" v-model="ruleForm.password" placeholder="请输入密码（11111111）" show-password />
                 </el-form-item>
 
                 <el-form-item v-if="!isLogin" label="验证码" prop="captcha_code">
@@ -33,7 +33,7 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive,onMounted, onUnmounted } from 'vue'
+import { ref, reactive, onMounted, onUnmounted, watch } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 import type { Router, RouteLocationNormalizedLoaded } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
@@ -116,12 +116,16 @@ const loading = ref<boolean>(false)
 const isLogin = ref<boolean>(true)
 const isMini = ref<boolean>(false)
 
+watch(isLogin, (value:boolean) => {
+    if (!value && !captcha.value) {
+        refreshCaptcha()
+    }
+})
+
 onMounted(function() {
     window.addEventListener('resize', resizeHandler)
     
     resizeHandler()
-    
-    refreshCaptcha()
 })
 
 onUnmounted(() => {

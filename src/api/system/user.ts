@@ -8,6 +8,14 @@ export function getUsers(data:any) {
     })
 }
 
+export function setUserInfo(data:any) {
+    return request({
+        url: '/users',
+        method: 'put',
+        data
+    })
+}
+
 export function getUserRoles(data:any) {
     return request({
         url: '/users/roles',

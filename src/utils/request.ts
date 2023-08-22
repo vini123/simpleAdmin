@@ -12,11 +12,9 @@ import { getToken } from '@/utils/auth'
 
 import { useUser } from '@/stores/user'
 
-import { useRouter } from "vue-router"
+import router from "@/router"
 
 const { VITE_APP_BASE_API } = import.meta.env;
-
-const router = useRouter()
 
 function getUser() {
   return useUser()
@@ -57,6 +55,7 @@ axios.interceptors.response.use(
     },
     error => {
       if (error.response && error.response.status === 401) {
+
         getUser().logout()
 
         if (router.currentRoute.value.path !== '/login') {
