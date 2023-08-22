@@ -23,6 +23,13 @@ export function register(data:any) {
     })
 }
 
+export function logout() {
+    return request({
+        url: '/logout',
+        method: 'post'
+    })
+}
+
 export function setUserRole(data:any) {
     return request({
         url: '/user/roles',
@@ -38,9 +45,17 @@ export function getUserInfo() {
     })
 }
 
-export function logout() {
+export function getUserProfile() {
     return request({
-        url: '/logout',
-        method: 'post'
+        url: '/user/profile',
+        method: 'get',
+    })
+}
+
+export function setUserProfile(data:any) {
+    return request({
+        url: '/user/profile',
+        method: 'put',
+        data
     })
 }

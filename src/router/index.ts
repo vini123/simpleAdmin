@@ -6,7 +6,7 @@ const routes = [
   {
     path: '/login',
     name: 'login',
-    component: () => import('@/views/user/login.vue'),
+    component: () => import('@/views/personal/login.vue'),
     hidden: true,
     meta: {
       title: '登录注册'
@@ -26,8 +26,7 @@ const router = createRouter({
         return savedPosition;
       } else {
         if (from.meta.saveSrollTop) {
-          const top: number =
-            document.documentElement.scrollTop || document.body.scrollTop;
+          const top: number = document.documentElement.scrollTop || document.body.scrollTop;
           resolve({ left: 0, top });
         }
       }

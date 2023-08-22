@@ -43,11 +43,7 @@ export default function initRoutes(router:Router, menus:Array<any>):AppRoute.Ini
           } else if (!item.link) {
             // 只有最后一级，我才需要去渲染组件。如果是跟目录下组件，就包裹在 home 下边
             if (!item.component && (!item.children || item.children.length == 0)) {
-              if (path.lastIndexOf('/') === 0) {
-                item.component = 'home' + path
-              } else {
-                item.component = path.substring(1)
-              }
+              item.component = path.substring(1)
             }
 
             if (item.component) {

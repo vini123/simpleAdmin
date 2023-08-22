@@ -26,9 +26,13 @@
             <img :src="user.avatar" class="user-avatar">
             <template #dropdown>
                 <el-dropdown-menu class="user-dropdown">
-                    <el-dropdown-item>个人资料</el-dropdown-item>
-                
-                    <el-dropdown-item>修改密码</el-dropdown-item>
+                    <router-link to="/personal/profile">
+                        <el-dropdown-item>个人资料</el-dropdown-item>
+                    </router-link>
+                    
+                    <router-link to="/personal/password">
+                        <el-dropdown-item>修改密码</el-dropdown-item>
+                    </router-link>
 
                     <el-dropdown-item divided @click="logout">
                         <span style="display:block;">退 出</span>
@@ -44,7 +48,7 @@
 import { useRouter } from 'vue-router'
 import { useApp } from '@/stores/app'
 import { useUser } from '@/stores/user'
-import { setUserRole } from '@/api/user'
+import { setUserRole } from '@/api/personal'
 import { useDark, useToggle } from '@vueuse/core'
 import Breadcrumb from './Breadcrumb.vue'
 import Fullscreen from './Fullscreen.vue'

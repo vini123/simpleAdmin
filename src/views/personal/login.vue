@@ -39,7 +39,7 @@ import type { Router, RouteLocationNormalizedLoaded } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
 import { isPhone, isEmail } from '@/utils/validate'
 import { useUser } from '@/stores/user'
-import { getCaptcha } from '@/api/user'
+import { getCaptcha } from '@/api/personal'
 
 interface FormData {
     account?: string;

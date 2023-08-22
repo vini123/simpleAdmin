@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import type { Router } from 'vue-router'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { login as userLogin, register as userRegister, getUserInfo } from '@/api/user'
+import { login as userLogin, register as userRegister, getUserInfo } from '@/api/personal'
 import { useApp } from './app'
 import initRoutes from './utils/router'
 
@@ -96,6 +96,20 @@ export const useUser = defineStore('user', {
                 }).catch(error => {
                     reject(error)
                 })
+            })
+        },
+        refreshUserInfo() {
+            getUserInfo().then((res:Record<string, any>) => {
+                if (!res) {
+                    return
+                }
+                
+                const keys:Array<string> = ['id', 'viewid', 'nickname', 'phone', 'avatar', 'email',  'gender', 'signature', 'roles', 'curRole']
+                keys.forEach(key => {
+                    if (Object.prototype.hasOwnProperty.call(res, key)) {
+                        this.$patch({[key]: res[key]})
+                    }
+                });
             })
         },
         setRoutes(router:Router, value:Array<any>):boolean {
