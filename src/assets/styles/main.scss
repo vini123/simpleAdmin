@@ -10,6 +10,7 @@
     --side-bar-item-bg-color: #1f2d3d;
     --side-bar-item-hover-bg-color: #001528;
     --side-bar-text-color: #bfcbd9;
+    --el-menu-base-level-padding: 12px;
 
     .sidebar-collapse {
         --side-bar-width: 72px; 
@@ -92,9 +93,12 @@ html, body, #app {
         transition: left 0.3s;
 
         .logo {
+            display: flex;
+            align-items: center;
+
             img {
-                width: var(--nav-bar-height);
-                height: var(--nav-bar-height);
+                width: calc(var(--nav-bar-height) - 10px);
+                height: calc(var(--nav-bar-height) - 10px);
             }
 
             .title {
@@ -162,9 +166,12 @@ html, body, #app {
         }
     }
 
-
     .el-menu-item:hover {
         background-color: var(--side-bar-item-hover-bg-color);
+    }
+
+    .front-icon {
+        margin-right: 10px !important;
     }
 }
 

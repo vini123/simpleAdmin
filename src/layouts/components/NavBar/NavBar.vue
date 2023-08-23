@@ -15,8 +15,12 @@
     </div>
 
     <div class="flex cursor-pointer mr-3">
-        <el-icon v-if="isDark" size="22" @click="toggleDark()"> <IconSunny /></el-icon>
-        <el-icon v-else size="20" @click="toggleDark()"> <IconMoon /></el-icon>
+        <el-icon v-if="isDark" size="20" @click="toggleDark()">
+            <SvgIcon icon="sun" />
+        </el-icon>
+        <el-icon v-else size="20" @click="toggleDark()">
+            <SvgIcon icon="moon" />
+        </el-icon>
     </div>
 
     <Fullscreen class="flex cursor-pointer mr-3" />
