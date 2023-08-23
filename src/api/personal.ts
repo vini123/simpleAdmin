@@ -59,3 +59,11 @@ export function setUserProfile(data:any) {
         data
     })
 }
+
+export function setUserPassword(data:any) {
+    return request({
+        url: '/user/passwords',
+        method: 'put',
+        data
+    })
+}

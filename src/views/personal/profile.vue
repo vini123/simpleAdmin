@@ -54,6 +54,8 @@
                 </el-form-item>
             </el-form>
         </el-card>
+
+        <ImageCropper ref="cropper" :title="'修改用户头像'" :path="form.avatar" :outWidth="200" @on-cropper-complete="onCropperComplete" />
     </div>
 </template>
 
@@ -62,6 +64,7 @@ import { ref, reactive, onMounted } from 'vue'
 import { useRouter } from 'vue-router'
 import { getUserProfile, setUserProfile } from '@/api/personal'
 import { useUser } from '@/stores/user'
+import { uploadImage } from '@/api/utils'
 
 interface RuleForm {
     avatar: string
@@ -74,7 +77,7 @@ interface RuleForm {
     signature: string
 }
 
-const initialized = ref<boolean>(true)
+const initialized = ref<boolean>(false)
 
 const loading = ref<boolean>(false)
 
@@ -94,6 +97,8 @@ const router = useRouter()
 const form = reactive<RuleForm>(initialForm())
 
 const user = useUser()
+
+const cropper = ref(null as any)
 
 onMounted(function() {
     initializeData()
@@ -136,11 +141,33 @@ function submitProfile() {
     }).catch(() => {
         loading.value = false
     })
+}
 
+function onCropperComplete(value:string) {
+    if (loading.value) {
+        return 
+    }
+    loading.value = true
+
+    uploadImage({file: value, info: {referer:'avatar'}}).then((value:any) => {
+
+        user.setUserInfo({avatar: value})
+
+        loading.value = false
+
+        ElNotification({
+            type: 'success',
+            title: '',
+            message: '图像已上传',
+            duration: 3000,
+        })
+    }).catch(() => {
+        loading.value = false
+    })
 }
 
 function editAvatar() {
-
+    cropper.value?.open()
 }
 
 function goBack() {

@@ -112,6 +112,14 @@ export const useUser = defineStore('user', {
                 });
             })
         },
+        setUserInfo(value:Record<string, any>) {
+            const keys:Array<string> = ['nickname', 'avatar', 'email',  'gender', 'signature', 'roles', 'curRole']
+            keys.forEach(key => {
+                if (Object.prototype.hasOwnProperty.call(value, key)) {
+                    this.$patch({[key]: value[key]})
+                }
+            });
+        },
         setRoutes(router:Router, value:Array<any>):boolean {
             const app = useApp()
             app.setMenu(initRoutes(router, value))
