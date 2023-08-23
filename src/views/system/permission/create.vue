@@ -277,13 +277,6 @@ function submitPermission() {
             }, 1200)
         }).catch(() => {
             loading.value = false
-
-            ElNotification({
-                type: 'error',
-                title: '',
-                message: '创建权限失败',
-                duration: 3000,
-            })
         })
     }
 }

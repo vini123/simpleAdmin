@@ -135,13 +135,6 @@ function submitRole() {
             }, 1200)
         }).catch(() => {
             loading.value = false
-
-            ElNotification({
-                type: 'error',
-                title: '',
-                message: '更新角色失败',
-                duration: 3000,
-            })
         })
     }
 }

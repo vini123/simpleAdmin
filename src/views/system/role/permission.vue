@@ -118,13 +118,6 @@ function submitPermission() {
             })
         }).catch(() => {
             loading.value = false
-
-            ElNotification({
-                type: 'success',
-                title: '',
-                message: '权限设置失败',
-                duration: 3000,
-            })
         })
     }
 }

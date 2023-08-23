@@ -129,13 +129,6 @@ function submitRole() {
         })
     }).catch(() => {
         loading.value = false
-
-        ElNotification({
-            type: 'error',
-            title: '',
-            message: '用户角色设置失败',
-            duration: 3000,
-        })
     })
 }
 

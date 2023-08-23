@@ -263,13 +263,6 @@ function submitPermission() {
             }, 1200)
         }).catch(() => {
             loading.value = false
-
-            ElNotification({
-                type: 'error',
-                title: '',
-                message: '权限更新失败',
-                duration: 3000,
-            })
         })
     }
 }
