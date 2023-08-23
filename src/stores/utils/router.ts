@@ -1,7 +1,7 @@
 import type { RouteRecordRaw, Router } from 'vue-router'
-const modulesRoutes = import.meta.glob(["@/views/**/*.{vue,tsx}", "!@/views/layouts/**/*.{vue,tsx}"])
-const BasicLayout = () => import('@/views/layouts/base.vue')
-const IframeLayout = () => import('@/views/layouts/iframe.vue')
+const modulesRoutes = import.meta.glob(["@/views/**/*.{vue,tsx}", "!@/layouts/**/*.{vue,tsx}"])
+const BasicLayout = () => import('@/layouts/base.vue')
+const IframeLayout = () => import('@/layouts/iframe.vue')
 
 // 菜单的顺序，服务端已经先整理好了。当然 / 必须是第一个路由
 export default function initRoutes(router:Router, menus:Array<any>):AppRoute.InitRoutesData {

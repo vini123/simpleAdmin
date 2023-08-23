@@ -179,6 +179,10 @@ function doLogin(formEl: FormInstance | undefined) {
             } else {
                 redirect = route.query.redirect as string
             }
+   
+            if (!redirect || redirect === '/login') {
+                redirect = '/'
+            }
             router.push({'path': redirect })
         }).catch(() => {
             loading.value = false
