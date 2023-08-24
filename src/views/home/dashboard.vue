@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-4">
-      <el-card shadow="never" class="container border-none">
+      <el-card shadow="never" class="card-container border-none">
         <h1 class="mt-4">Custom theme example (on demand)</h1>
     
         <div style="font-size: 20px">
@@ -84,16 +84,18 @@
   </script>
   
   <style>
-  .container {
+  .card-container {
     min-height: calc(100vh - var(--nav-bar-height) - 32px);
+    width: 100%;
   }
 
-  .container .el-card__body {
+  .card-container .el-card__body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
     align-items:center;
     min-height: calc(100vh - var(--nav-bar-height) - 150px);
+    width: 100%;
   }
   
   a {
