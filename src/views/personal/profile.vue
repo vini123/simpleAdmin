@@ -151,9 +151,11 @@ function onCropperComplete(value:string) {
 
     uploadImage({file: value, info: {referer:'avatar'}}).then((value:any) => {
 
-        user.setUserInfo({avatar: value})
-
         loading.value = false
+        
+        form.avatar = value
+        
+        user.setUserInfo({avatar: value})
 
         ElNotification({
             type: 'success',

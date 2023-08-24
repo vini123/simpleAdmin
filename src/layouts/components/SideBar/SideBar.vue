@@ -1,7 +1,7 @@
 <template>
   <div class="side-bar flex flex-col">
     <div class="w-full logo">
-      <router-link class="flex items-center" :class="{'justify-center': isCollapse, 'px-3': !isCollapse }" :title="appTitle" :to="'/'">
+      <router-link class="flex items-center w-full" :class="{'justify-center': isCollapse, 'px-3': !isCollapse }" :title="appTitle" :to="'/'">
         <img v-if="app.logo" :src="app.logo" :alt="appTitle" />
         <img v-else :src="logo" :alt="appTitle" />
         <span v-if="!isCollapse" class="title">{{ appTitle }}</span>

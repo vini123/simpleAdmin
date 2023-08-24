@@ -80,6 +80,12 @@ html, body, #app {
                 left: calc(0px - var(--side-bar-width));
             }
         }
+
+        .el-menu {
+            .front-icon {
+                margin-left: 10px !important;
+            }
+        }
     }
 
     .side-bar {

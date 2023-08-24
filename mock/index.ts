@@ -1,6 +1,6 @@
 import type { MockMethod } from 'vite-plugin-mock';
 
-import menus from './menu'
+import userinfo from './userinfo'
 
 export default [
   {
@@ -39,12 +39,7 @@ export default [
     url: '/api/user/info',
     method: 'get',
     response: () => {
-      return {
-        nickname: '七月羽歌',
-        gender: 1,
-        avatar: 'https://www.yuepaibao.com/storage/upload/image/avatar/202106/1.jpg?time=1691482955',
-        menus: menus
-      };
+      return userinfo;
     },
   },
   {

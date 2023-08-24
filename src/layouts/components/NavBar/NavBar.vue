@@ -6,7 +6,7 @@
         </el-icon>
     </div>
 
-    <Breadcrumb />
+    <Breadcrumb v-if="app.collapse === 'false'" />
 
     <div class="ml-auto mr-4" style="width:108px;">
         <el-select v-model="user.curRole" size="small" placeholder="请选择角色" @change="roleChange">
@@ -14,7 +14,7 @@
         </el-select>
     </div>
 
-    <div class="flex cursor-pointer mr-3">
+    <div class="flex cursor-pointer mr-4">
         <el-icon v-if="isDark" size="20" @click="toggleDark()">
             <SvgIcon icon="sun" />
         </el-icon>
@@ -23,7 +23,7 @@
         </el-icon>
     </div>
 
-    <Fullscreen class="flex cursor-pointer mr-3" />
+    <Fullscreen class="flex cursor-pointer mr-4" />
 
     <div class="mr-3">
         <el-dropdown class="avatar-container" trigger="click">

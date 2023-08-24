@@ -49,8 +49,6 @@ declare module 'vue' {
     ElTree: typeof import('element-plus/es')['ElTree']
     IconDelete: typeof import('~icons/ep/delete')['default']
     IconEdit: typeof import('~icons/ep/edit')['default']
-    IconMoon: typeof import('~icons/ep/moon')['default']
-    IconSunny: typeof import('~icons/ep/sunny')['default']
     ImageCropper: typeof import('./../components/ImageCropper/ImageCropper.vue')['default']
     RouterLink: typeof import('vue-router')['RouterLink']
     RouterView: typeof import('vue-router')['RouterView']
