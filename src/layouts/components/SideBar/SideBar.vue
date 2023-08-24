@@ -1,10 +1,10 @@
 <template>
   <div class="side-bar flex flex-col">
     <div class="w-full logo">
-      <router-link class="flex items-center w-full" :class="{'justify-center': isCollapse, 'px-3': !isCollapse }" :title="appTitle" :to="'/'">
+      <router-link class="flex items-center w-full" :class="{'justify-center': app.sidebarCollapse, 'px-3': !app.sidebarCollapse }" :title="appTitle" :to="'/'">
         <img v-if="app.logo" :src="app.logo" :alt="appTitle" />
         <img v-else :src="logo" :alt="appTitle" />
-        <span v-if="!isCollapse" class="title">{{ appTitle }}</span>
+        <span v-if="!app.sidebarCollapse" class="title">{{ appTitle }}</span>
       </router-link>
     </div>
     <el-scrollbar wrap-class="scrollbar-wrapper">
@@ -12,7 +12,7 @@
         router
         unique-opened
         mode="vertical"
-        :collapse="isCollapse"
+        :collapse="app.sidebarCollapse"
         :default-active="defaultActive"
         :collapse-transition="false"
       >
@@ -45,10 +45,6 @@ const defaultActive = computed(() => {
     return (route.meta?.activePath) ? route.meta.activePath.toString(): route.path
   }
 );
-
-const isCollapse = computed(() => {
-  return app.collapse === 'true'
-})
 
 const appTitle = computed(():string => {
   if (app.title) {

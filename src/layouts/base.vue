@@ -1,6 +1,6 @@
 <template>
-  <div class="layout-container" :class="{'sidebar-collapse': app.collapse === 'true', 'is-phone': app.isPhone}">
-    <div v-if="app.isPhone && app.collapse === 'false'" class="fixed w-full h-full bg-black/[.5] left-0 top-0 z-[95]" @click="doCollapse"></div>
+  <div class="layout-container" :class="{'sidebar-collapse': app.sidebarCollapse, 'is-phone': app.isPhone}">
+    <div v-if="app.isPhone && !app.sidebarCollapse" class="fixed w-full h-full bg-black/[.5] left-0 top-0 z-[95]" @click="doCollapse"></div>
 
     <SideBar />
 

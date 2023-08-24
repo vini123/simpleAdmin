@@ -1,12 +1,12 @@
 <template>
   <div class="nav-bar">
     <div class="flex ml-3 font-light hamburger">
-        <el-icon :class="{'is-active': app.collapse === 'false'}" size="20" @click="doClick">
+        <el-icon :class="{'is-active': !app.sidebarCollapse}" size="20" @click="doClick">
             <SvgIcon :icon="'hamburger'" />
         </el-icon>
     </div>
 
-    <Breadcrumb v-if="app.collapse === 'false'" />
+    <Breadcrumb v-if="!app.sidebarCollapse" />
 
     <div class="ml-auto mr-4" style="width:108px;">
         <el-select v-model="user.curRole" size="small" placeholder="请选择角色" @change="roleChange">
@@ -64,7 +64,7 @@ const app = useApp()
 const user = useUser()
 
 function doClick() {
-    if (app.collapse === 'true') {
+    if (app.sidebarCollapse) {
         app.setData({collapse: false})
     } else {
         app.setData({collapse: true})

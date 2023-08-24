@@ -17,6 +17,11 @@ export const useApp = defineStore('app', {
         menus: [] as Array<AppRoute.Route>,
         routeNames: [] as Array<string>
     }),
+    getters: {
+        sidebarCollapse: (state):boolean => {
+            return state.collapse === 'true'
+        }
+    },
     actions: {
         setData(value:Record<string, any>) {
             if (value.collapse !==  undefined) {
