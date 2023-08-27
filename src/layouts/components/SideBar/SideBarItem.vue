@@ -1,7 +1,7 @@
 <template>
   <div v-if="!item?.meta.hidden">
     <el-menu-item v-if="onlyOneChild(item?.children)" :index="item?.path" :class="{'only-grade': onlyGrade(item?.path, item?.children)}">
-      <el-icon v-if="item?.meta.icon" class="flex front-icon"><SvgIcon :icon="`${item.meta.icon}`" /></el-icon>
+      <el-icon v-if="item?.meta.icon" size="18" class="flex front-icon"><SvgIcon :icon="`${item.meta.icon}`" /></el-icon>
 
       <template #title>
         <span>{{ item?.meta.title }}</span>
@@ -10,7 +10,7 @@
 
     <el-sub-menu v-else :index="item?.path || ''">
       <template #title>
-          <el-icon v-if="item?.meta.icon" class="flex front-icon"><SvgIcon :icon="`${item.meta.icon}`" /></el-icon>
+          <el-icon v-if="item?.meta.icon" size="18" class="flex front-icon"><SvgIcon :icon="`${item.meta.icon}`" /></el-icon>
 
           <span>{{ item?.meta.title }}</span>
       </template>

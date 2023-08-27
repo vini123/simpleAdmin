@@ -20,7 +20,7 @@
 html {
     &.dark {
         --side-bar-bg-color: #181818;
-        --side-bar-item-bg-color: #181818;
+        --side-bar-item-bg-color: #1c1c1c;
         --side-bar-item-hover-bg-color: #2b2d2e;
         --side-bar-text-color: #bfcbd9;
         
@@ -165,7 +165,7 @@ html, body, #app {
 
         &.is-active {
             color: #409eff;
-            background-color: var(--side-bar-item-hover-bg-color) !important;
+            // background-color: var(--side-bar-item-hover-bg-color) !important;
         }
 
         &.only-grade {
@@ -193,6 +193,33 @@ html, body, #app {
 
         .el-sub-menu__icon-arrow {
             opacity: 0;
+        }
+    }
+}
+
+// 左侧菜单，收起时，鼠标移上去，弹出去的组件默认样式更改
+.el-popper {
+    background: transparent !important;
+    border: none !important;
+
+    $radius: 4px;
+
+    .el-menu--popup {
+        padding: 0 !important;
+        border-radius: $radius;
+
+        .nest-menu:first-child {
+            .el-menu-item {
+                border-top-left-radius: $radius;
+                border-top-right-radius: $radius;
+            }
+        }
+
+        .nest-menu:last-child {
+            .el-menu-item {
+                border-bottom-left-radius: $radius;
+                border-bottom-right-radius: $radius;
+            }
         }
     }
 }

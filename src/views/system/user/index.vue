@@ -2,7 +2,11 @@
     <div class="px-4 py-4">
       <el-card v-if="initialized" v-loading="loading" shadow="never" class="border-none">
       <div class="flex items-center">
-        <el-input v-model="req.phone" class="ml-auto mr-2 w-[150px]" placeholder="请输入手机号码" />
+        <el-select v-model="req.role_id" placeholder="请选择角色" class="ml-auto mr-2 w-[150px]">
+            <el-option v-for="(item, index) in roles" :key="index" :label="item.title" :value="item.id"></el-option>
+        </el-select>
+
+        <el-input v-model="req.phone" class="mr-2 w-[150px]" placeholder="请输入手机号码" />
         <el-button type="primary" @click="fetchData">搜索</el-button>
       </div>
   
@@ -92,6 +96,7 @@
 
   interface UserReq extends PaginateReq {
     phone?: number
+    role_id?: number
   }
 
   const initialized = ref<boolean>(false)
@@ -103,11 +108,14 @@
   const app = useApp()
   
   const total = ref<number>(0)
+
+  const roles = ref<Array<Record<string, any>>>()
   
   const req = reactive<UserReq>({
     page: 1,
     limit: 30,
-    phone: undefined
+    phone: undefined,
+    role_id: 0,
   })
   
   const tableData = ref<Array<any>>([])
@@ -145,6 +153,8 @@
       }
       
       total.value = res.total
+
+      roles.value = [{id: 0, title: '所有角色'}].concat(res.roles)
       
       loading.value = false
 

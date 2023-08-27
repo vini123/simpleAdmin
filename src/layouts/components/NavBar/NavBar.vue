@@ -6,7 +6,7 @@
         </el-icon>
     </div>
 
-    <Breadcrumb v-if="!app.sidebarCollapse" />
+    <Breadcrumb />
 
     <div class="ml-auto mr-4" style="width:108px;">
         <el-select v-model="user.curRole" size="small" placeholder="请选择角色" @change="roleChange">
