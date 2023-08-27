@@ -14,7 +14,7 @@
                 </el-form-item>
 
                 <el-form-item label="密码" prop="password">
-                    <el-input type="password" v-model="ruleForm.password" placeholder="请输入密码（11111111）" show-password />
+                    <el-input type="password" v-model="ruleForm.password" placeholder="请输入密码（111111）" show-password />
                 </el-form-item>
 
                 <el-form-item v-if="!isLogin" label="验证码" prop="captcha_code">
