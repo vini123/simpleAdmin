@@ -70,5 +70,4 @@ declare interface TableColumnsControllerItem {
   fixed ?: string
   readonly: boolean
   show: boolean
-  order: number
 }

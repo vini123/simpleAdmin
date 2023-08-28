@@ -1,8 +1,8 @@
 <template>
     <div class="px-4 py-4">
-      <el-card v-if="initialized" v-loading="loading" shadow="never" class="border-none">
+      <el-card v-loading="loading" shadow="never" class="border-none">
       <div class="flex items-center">
-        <TableColumnsController v-model:columns="tableColumns" :cacheKey="columnsCache"/>
+        <TableColumnsController v-model:columns="tableColumns" :cacheKey="columnsCache" @reset="resetTableColumns"/>
 
         <el-select v-model="req.role_id" placeholder="请选择角色" class="ml-auto mr-2 w-[150px]">
             <el-option v-for="(item, index) in roles" :key="index" :label="item.title" :value="item.id"></el-option>
@@ -13,10 +13,14 @@
       </div>
   
       <el-table :data="tableData" class="w-full mt-5">
-        <template v-for="item in tableColumns" :key="item.value" >
+        <template v-for="(item, index) in tableColumns" :key="item.value" >
           <el-table-column v-if="item.show && item.value !== 'setting'" :label="item.label" prop="item.value" :width="item.width ?? undefined">
             <template #default="scope">
-              <el-avatar v-if="item.value === 'avatar'" :size="50" :src="scope.row.avatar" />
+              <span v-if="item.value === 'no'" class="ml-2">
+                {{ index + 1 }}
+              </span>
+
+              <el-avatar v-else-if="item.value === 'avatar'" :size="50" :src="scope.row.avatar" />
 
               <div v-else-if="item.value === 'role'">
                 <el-tag v-for="(item, index) in scope.row.roles" :key="index" class="mr-1">{{ item.title }}</el-tag>
@@ -64,7 +68,7 @@
           </el-form-item>
 
           <el-form-item>
-            <el-button v-loading="loading" type="primary" @click="submitPassword">确定</el-button>
+            <el-button type="primary" @click="submitPassword">确定</el-button>
             <el-button @click="dialog.visible = false">取消</el-button>
           </el-form-item>
         </el-form>
@@ -84,8 +88,6 @@
     phone?: number
     role_id?: number
   }
-
-  const initialized = ref<boolean>(false)
   
   const loading = ref<boolean>(false)
 
@@ -106,21 +108,24 @@
   
   const tableData = ref<Array<any>>([])
 
-  const tableColumns = ref<Array<TableColumnsControllerItem>>([
-    { label: '头像', value: 'avatar', width: 80, readonly: true, show: true, order: 0 },
-    { label: 'ID', value: 'viewid', width: 120, readonly: true, show: true, order: 0 },
-    { label: '昵称', value: 'nickname', readonly: true, show: true, order: 0 },
-    { label: '注册来源', value: 'referer_str', width: 120, readonly: false, show: true, order: 0 },
-    { label: '性别', value: 'gender_str', width: 80, readonly: false, show: true, order: 0 },
-    { label: '手机号码', value: 'phone', width: 150, readonly: false,show: true, order: 0 },
-    { label: '微信', value: 'wechat', width: 150, readonly: false,show: true, order: 0 },
-    { label: '邮箱', value: 'email', readonly: false,show: true, order: 0 },
-    { label: '后台角色', value: 'role', readonly: false,show: true, order: 0 },
-    { label: '注册 ip', value: 'register_ip', width: 150, readonly: false,show: true, order: 0 },
-    { label: '签名', value: 'signature', readonly: false,show: true, order: 0 },
-    { label: '创建时间', value: 'created_at', readonly: false,show: true, order: 0 },
-    { label: '操作', value: 'setting', width: 200, readonly: false,show: true, order: 0 },
-  ])
+  const initColumns:Array<TableColumnsControllerItem> = [
+    { label: '序号', value: 'no', width: 80, readonly: false, show: false },
+    { label: '头像', value: 'avatar', width: 80, readonly: true, show: true },
+    { label: 'ID', value: 'viewid', width: 120, readonly: true, show: true },
+    { label: '昵称', value: 'nickname', readonly: true, show: true },
+    { label: '注册来源', value: 'referer_str', width: 120, readonly: false, show: true },
+    { label: '性别', value: 'gender_str', width: 80, readonly: false, show: true },
+    { label: '手机号码', value: 'phone', width: 150, readonly: false,show: true },
+    { label: '微信', value: 'wechat', width: 150, readonly: false,show: true },
+    { label: '邮箱', value: 'email', readonly: false,show: true },
+    { label: '后台角色', value: 'role', readonly: false,show: true },
+    { label: '注册 ip', value: 'register_ip', width: 150, readonly: false,show: true },
+    { label: '签名', value: 'signature', readonly: false,show: true },
+    { label: '创建时间', value: 'created_at', readonly: false,show: true },
+    { label: '操作', value: 'setting', width: 200, readonly: false,show: true },
+  ]
+
+  const tableColumns = ref<Array<TableColumnsControllerItem>>(initColumns)
 
   const columnsCache = ref<string>('system_user_index')
 
@@ -168,8 +173,6 @@
       roles.value = [{id: 0, title: '所有角色'}].concat(res.roles)
       
       loading.value = false
-
-      initialized.value = true
     }).catch(() => {
       loading.value = false
     })
@@ -234,5 +237,9 @@
       dialog.password = ''
       dialog.visible = true
     }
+  }
+
+  function resetTableColumns() {
+    tableColumns.value = initColumns
   }
 </script>

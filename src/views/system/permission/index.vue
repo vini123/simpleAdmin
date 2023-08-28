@@ -10,7 +10,7 @@
       <el-button v-if="includes(app.routeNames, ['permission.edit']) && sorted" v-loading="loading" type="primary" @click="updatePermissionsOrders">保存排序</el-button>
     </div>
 
-    <el-table v-loading="loading" :data="tableData"  ref="dragTable" class="w-full">
+    <el-table v-loading="loading" :data="tableData" ref="dragTable" class="w-full">
 
       <el-table-column v-if="includes(app.routeNames, ['permission.create'])" width="60" label="排序">
         <template #default="scope">
@@ -89,7 +89,7 @@
 
 
 <script setup lang="ts">
-import { ref, reactive, watch, onBeforeMount, onMounted, nextTick } from 'vue'
+import { ref, reactive, watch, onBeforeMount, nextTick } from 'vue'
 import { useRoute, useRouter, onBeforeRouteUpdate } from 'vue-router'
 import { useApp } from '@/stores/app'
 import { getPermissions, updatePermissionsOrders as updateOrders, deletePermissions } from '@/api/system/permission'
@@ -184,6 +184,8 @@ function fetchData() {
     total.value = res.total
 
     initialized.value = true
+
+    nextTick(initDropTable)
   }).catch(() => {
     loading.value = false
   })
@@ -219,11 +221,13 @@ function updatePermissionsOrders() {
   })
 }
 
-onMounted(function() {
-  nextTick(initDropTable)
-})
+let initializedDropTable = false;
 
 const initDropTable = () => {
+  if (initializedDropTable) {
+    return
+  }
+
   if (!includes(app.routeNames, ['permission.create', 'permission.edit'])) {
     return
   }
@@ -247,6 +251,7 @@ const initDropTable = () => {
           }
         }
       })
+      initializedDropTable = true
     }
   }
 }
