@@ -10,6 +10,9 @@
 
 测试账号以及密码： `zhoulin@xiangrong.pro`、   `111111` （如果发现登录不了，请复位谢谢）
 
+
+![image](action.gif)
+
 # 前端技术栈选择说明
 
 - 选择 vue3。是因为我只会 vue3 技术栈。
