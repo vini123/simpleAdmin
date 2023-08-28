@@ -1,11 +1,11 @@
 <template>
     <div class="px-4 py-4">
-      <el-card v-if="initialized" shadow="never" class="border-none">
+      <el-card v-loading="loading" shadow="never" class="border-none">
       <div v-if="includes(app.routeNames, ['role.create'])" class="flex items-center mb-5">
         <el-button type="primary" size="small" @click="goCreate">添加</el-button>
       </div>
   
-      <el-table v-loading="loading" :data="tableData" class="w-full">
+      <el-table :data="tableData" class="w-full">
         
         <el-table-column label="名称" prop="name" />
 
@@ -37,8 +37,6 @@
   import { useApp } from '@/stores/app'
   import { getRoles, deleteRoles } from '@/api/system/role'
   import { includes } from '@/utils/utils'
-
-  const initialized = ref<boolean>(false)
 
   const loading = ref<boolean>(false)
 
@@ -77,8 +75,6 @@
       total.value = res.total
 
       loading.value = false
-
-      initialized.value = true
     }).catch(() => {
       loading.value = false
     })

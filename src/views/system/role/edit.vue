@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-4">
-        <el-card v-if="initialized" v-loading="loading" shadow="never" class="border-none">
+        <el-card v-loading="loading" shadow="never" class="border-none">
             <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" :label-position="'right'" label-width="120px">
                 <el-form-item label="显示名称" prop="title">
                     <el-input v-model="ruleForm.title" placeholder="请输入显示名称，如超级管理员" clearable />
@@ -11,7 +11,7 @@
                 </el-form-item>
 
                 <el-form-item class="mt-6">
-                    <el-button v-loading="loading" type="primary" @click="submitRole">提交</el-button>
+                    <el-button type="primary" @click="submitRole">提交</el-button>
                     <el-button @click="goBack">返回</el-button>
                 </el-form-item>
             </el-form>
@@ -31,8 +31,6 @@ interface RuleForm {
     name: string
     id: number
 }
-
-const initialized = ref<boolean>(false)
 
 const loading = ref<boolean>(false)
 
@@ -97,8 +95,6 @@ function initializeData() {
         Object.assign(ruleForm, res)
 
         loading.value = false
-
-        initialized.value = true
     }).catch(() => {
 
     })

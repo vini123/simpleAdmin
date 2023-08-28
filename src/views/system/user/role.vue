@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-4">
-        <el-card v-if="initialized" v-loading="loading" shadow="never" class="border-none">
+        <el-card v-loading="loading" shadow="never" class="border-none">
             <div class="text-base mb-4">
                 <span>给</span>
                 <span class="font-medium">{{ nickname }}</span>
@@ -15,7 +15,7 @@
 
          
             <el-form-item class="mt-6">
-                <el-button v-loading="loading" type="primary" @click="submitRole">提交</el-button>
+                <el-button type="primary" @click="submitRole">提交</el-button>
                 <el-button @click="goBack">返回</el-button>
             </el-form-item>
         </el-card>
@@ -28,8 +28,6 @@ import { useRoute, useRouter } from 'vue-router'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import { getUserRoles, setUserRoles } from '@/api/system/user'
 import type { CheckboxValueType } from 'element-plus';
-
-const initialized = ref<boolean>(false)
 
 const loading = ref<boolean>(false)
 
@@ -102,8 +100,6 @@ function initializeData() {
         calcIndeterminate()
 
         loading.value = false
-
-        initialized.value = true
     }).catch(() => {
 
     })

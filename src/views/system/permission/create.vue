@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-4">
-        <el-card v-if="initialized" v-loading="loading" shadow="never" class="border-none">
+        <el-card v-loading="loading" shadow="never" class="border-none">
             <el-form ref="ruleFormRef" :model="ruleForm" :rules="rules" :label-position="'right'" label-width="120px">
                 <el-form-item label="父节点" prop="parent_id">
                     <el-select v-model="ruleForm.parent_id" placeholder="请选择父节点" @change="parentIdChange">
@@ -57,7 +57,7 @@
                 </el-form-item>
 
                 <el-form-item class="mt-6">
-                    <el-button v-loading="loading" type="primary" @click="submitPermission">提交</el-button>
+                    <el-button type="primary" @click="submitPermission">提交</el-button>
                     <el-button @click="goBack">返回</el-button>
                 </el-form-item>
             </el-form>
@@ -92,8 +92,6 @@ interface RuleForm {
     redirect?: string
     parent_id: number
 }
-
-const initialized = ref<boolean>(false)
 
 const loading = ref<boolean>(false)
 
@@ -314,7 +312,6 @@ function runderPermissions() {
         permissionList.value = menus
          
         nextTick(() => {
-            initialized.value = true
             loading.value = false
         })
     })

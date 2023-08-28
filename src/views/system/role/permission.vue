@@ -1,6 +1,6 @@
 <template>
     <div class="px-4 py-4">
-        <el-card v-if="initialized" v-loading="loading" shadow="never" class="border-none mb-[72px]">
+        <el-card v-loading="loading" shadow="never" class="border-none mb-[72px]">
             <div class="text-base mb-4">
                 <span>给</span>
                 <span class="font-medium">{{ role }}</span>
@@ -30,7 +30,7 @@
         </el-card>
 
         <div class="flex items-center justify-end w-full h-[72px] fixed right-0 bottom-0 z-10 pr-[36px] shadow el-bg-color">
-            <el-button v-loading="loading" type="primary" @click="submitPermission">提交</el-button>
+            <el-button type="primary" @click="submitPermission">提交</el-button>
             <el-button @click="goBack">返回</el-button>
         </div>
     </div>
@@ -41,8 +41,6 @@ import { ref, onMounted, nextTick } from 'vue'
 import { useRoute, useRouter } from 'vue-router'
 // import { ElTree } from 'element-plus'
 import { getRolePermissions, setRolePermissions } from '@/api/system/role'
-
-const initialized = ref<boolean>(false)
 
 const loading = ref<boolean>(false)
 
@@ -87,8 +85,6 @@ function initializeData() {
         checkedIds.value = res.checkedIds
 
         loading.value = false
-
-        initialized.value = true
         
         nodeExpand()
 
