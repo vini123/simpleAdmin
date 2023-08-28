@@ -197,8 +197,8 @@ html, body, #app {
     }
 }
 
-// 左侧菜单，收起时，鼠标移上去，弹出去的组件默认样式更改
-.el-popper {
+// 左侧菜单，收起时，鼠标移上去，弹出去的组件默认样式更改(这个影响太大了。必须是左侧菜单才这样)
+.el-popper:has(.el-menu) {
     background: transparent !important;
     border: none !important;
 

@@ -59,3 +59,16 @@ declare interface UserRole {
   name:string;
   title:string
 }
+
+
+// 表格列控制
+declare interface TableColumnsControllerItem {
+  label: string
+  value: string
+  width ?: number
+  align ?: string
+  fixed ?: string
+  readonly: boolean
+  show: boolean
+  order: number
+}
