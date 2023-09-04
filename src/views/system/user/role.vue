@@ -28,6 +28,7 @@ import { useRoute, useRouter } from 'vue-router'
 import type { RouteLocationNormalizedLoaded } from 'vue-router'
 import { getUserRoles, setUserRoles } from '@/api/system/user'
 import type { CheckboxValueType } from 'element-plus';
+import { useUser } from '@/stores/user'
 
 const loading = ref<boolean>(false)
 
@@ -44,6 +45,8 @@ const roles = ref<Array<Record<string, any>>>([])
 const route:RouteLocationNormalizedLoaded = useRoute()
 
 const router = useRouter()
+
+const user = useUser()
 
 let user_id:number;
 
@@ -116,6 +119,33 @@ function submitRole() {
 
     setUserRoles(data).then(() => {
         loading.value = false
+
+        // 当前用户才需要这样
+        if (user_id === user.id) {
+            const curRoles:Array<UserRole> = []
+            let changeCurRole = false
+            roles.value.forEach(item => {
+                if (checkedIds.value.indexOf(item.id) >= 0) {
+                    curRoles.push({
+                        name: item.name,
+                        title: item.title
+                    })  
+                } else {
+                    if(user.curRole === item.name) {
+                        changeCurRole = true
+                    }
+                }
+            })
+
+            if (changeCurRole) {
+                if (curRoles.length > 0) {
+                    user.setUserInfo({'curRole': curRoles[0]['name']})
+                } else {
+                    user.setUserInfo({'curRole': ''})
+                }
+            }
+            user.setUserInfo({'roles': curRoles})
+        }
 
         ElNotification({
             type: 'success',

@@ -17,13 +17,13 @@
           <el-table-column v-if="item.show && item.value !== 'setting'" :label="item.label" prop="item.value" :width="item.width ?? undefined">
             <template #default="scope">
               <span v-if="item.value === 'no'" class="ml-2">
-                {{ index + 1 }}
+                {{ (req.page - 1) * req.limit + index + 1 }}
               </span>
 
               <el-avatar v-else-if="item.value === 'avatar'" :size="50" :src="scope.row.avatar" />
 
               <div v-else-if="item.value === 'role'">
-                <el-tag v-for="(item, index) in scope.row.roles" :key="index" class="mr-1">{{ item.title }}</el-tag>
+                <el-tag v-for="role in scope.row.roles" :key="role.id" class="mr-1">{{ role.title }}</el-tag>
               </div>
 
               <div v-else-if="item.value === 'signature'">
@@ -125,7 +125,7 @@
     { label: '操作', value: 'setting', width: 200, readonly: false,show: true },
   ]
 
-  const tableColumns = ref<Array<TableColumnsControllerItem>>(initColumns)
+  const tableColumns = ref<Array<TableColumnsControllerItem>>()
 
   const columnsCache = ref<string>('system_user_index')
 
@@ -148,6 +148,10 @@
       if (value) {
         tableColumns.value = JSON.parse(value) as Array<TableColumnsControllerItem>
       }
+    }
+
+    if (!tableColumns.value || tableColumns.value?.length === 0) {
+      resetTableColumns()
     }
   })
   
@@ -240,6 +244,6 @@
   }
 
   function resetTableColumns() {
-    tableColumns.value = initColumns
+    tableColumns.value = JSON.parse(JSON.stringify(initColumns)) as Array<TableColumnsControllerItem>
   }
 </script>

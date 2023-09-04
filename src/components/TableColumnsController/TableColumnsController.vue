@@ -2,7 +2,7 @@
     <div class="relative">
         <el-tooltip content="列设置" placement="top">
             <div>
-                <el-popover placement="bottom-start" :width="400" trigger="click" @show="showHandler">
+                <el-popover placement="bottom-start" width="300" trigger="click" @show="showHandler">
                     <template #reference>
                         <el-icon size="20">
                             <SvgIcon :icon="'setting'" />
@@ -49,9 +49,6 @@ const emits = defineEmits(['update:columns', 'reset'])
 const props = withDefaults(defineProps<Props>(), {
     columns: () => []
 })
-
-const tooltipRef = ref()
-const popoverRef = ref()
 
 const isIndeterminate = ref(false)
 

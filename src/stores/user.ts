@@ -89,7 +89,7 @@ export const useUser = defineStore('user', {
                             })
                         }
                     }
-                    this.$patch({ 'roles': res['roles'] })
+                    this.$patch({ 'roles': roles })
 
                     const menus:Array<Record<string, any>> = res.menus || null
                     resolve(menus)

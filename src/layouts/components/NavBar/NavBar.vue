@@ -77,8 +77,6 @@ function logout() {
 }
 
 function roleChange(value:string) {
-    console.log('value', value, user.curRole)
-
     setUserRole({ role: value }).then(() => {
         router.go(0)
     })
