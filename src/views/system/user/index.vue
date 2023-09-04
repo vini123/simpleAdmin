@@ -51,7 +51,7 @@
         </template>
       </el-table>
   
-      <el-pagination class="mt-5" background hide-on-single-page layout="prev, pager, next" :total="total" :page-size="req.limit" v-model:current-page="req.page" @current-change="fetchData" />
+      <el-pagination class="mt-5" background hide-on-single-page layout="total, prev, pager, next" :total="total" :page-size="req.limit" v-model:current-page="req.page" @current-change="fetchData" />
     </el-card>
 
     <el-dialog v-model="dialog.visible" :title="dialog.title" :show-close="false" :destroy-on-close="true" class="max-w-[720px] min-w-[520px] rounded-xl" center>

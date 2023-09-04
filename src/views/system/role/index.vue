@@ -25,7 +25,7 @@
         </el-table-column>
       </el-table>
   
-      <el-pagination class="mt-5" background hide-on-single-page layout="prev, pager, next" :total="total" :page-size="req.limit" v-model:current-page="req.page" @current-change="fetchData" />
+      <el-pagination class="mt-5" background hide-on-single-page layout="total, prev, pager, next" :total="total" :page-size="req.limit" v-model:current-page="req.page" @current-change="fetchData" />
     </el-card>
     </div>
   </template>
