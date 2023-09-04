@@ -13,39 +13,41 @@
       </div>
   
       <el-table :data="tableData" class="w-full mt-5">
-        <template v-for="(item, index) in tableColumns" :key="item.value" >
-          <el-table-column v-if="item.show && item.value !== 'setting'" :label="item.label" prop="item.value" :width="item.width ?? undefined">
-            <template #default="scope">
-              <span v-if="item.value === 'no'" class="ml-2">
-                {{ (req.page - 1) * req.limit + index + 1 }}
-              </span>
+        <template v-for="item in tableColumns" :key="item.value" >
+          <template v-if="item.show">
+            <el-table-column v-if="item.value !== 'setting'" :label="item.label" prop="item.value" :width="item.width ?? undefined">
+              <template #default="scope">
+                <span v-if="item.value === 'no'">
+                  {{ (req.page - 1) * req.limit + scope.$index + 1 }}
+                </span>
 
-              <el-avatar v-else-if="item.value === 'avatar'" :size="50" :src="scope.row.avatar" />
+                <el-avatar v-else-if="item.value === 'avatar'" :size="50" :src="scope.row.avatar" />
 
-              <div v-else-if="item.value === 'role'">
-                <el-tag v-for="role in scope.row.roles" :key="role.id" class="mr-1">{{ role.title }}</el-tag>
-              </div>
+                <div v-else-if="item.value === 'role'">
+                  <el-tag v-for="role in scope.row.roles" :key="role.id" class="mr-1">{{ role.title }}</el-tag>
+                </div>
 
-              <div v-else-if="item.value === 'signature'">
-                <span v-if="!scope.row.signature">-</span>
-                <span v-else-if="scope.row.signature.length < 20">{{ scope.row.signature }}</span>
-                <el-tooltip v-else :content="scope.row.signature" placement="top-end">
-                  <span>{{ scope.row.signature.substr(0, 20) + '…' }}</span>
-                </el-tooltip>
-              </div>
+                <div v-else-if="item.value === 'signature'">
+                  <span v-if="!scope.row.signature">-</span>
+                  <span v-else-if="scope.row.signature.length < 20">{{ scope.row.signature }}</span>
+                  <el-tooltip v-else :content="scope.row.signature" placement="top-end">
+                    <span>{{ scope.row.signature.substr(0, 20) + '…' }}</span>
+                  </el-tooltip>
+                </div>
 
-              <span v-else>
-                {{ scope.row[item.value] }}
-              </span>
-            </template>
-          </el-table-column>
+                <span v-else>
+                  {{ scope.row[item.value] }}
+                </span>
+              </template>
+            </el-table-column>
 
-          <el-table-column v-else-if="item.show && item.value === 'setting' && includes(app.routeNames, ['user.role'])" :label="item.label" prop="item.value" :width="item.width ?? undefined" align="center" fixed="right">
-            <template #default="scope">
-              <el-button v-if="includes(app.routeNames, ['user.role'])" size="small" type="primary" text @click="goSetRole(scope.row)">设置角色</el-button>
-              <el-button v-if="includes(app.routeNames, ['user.edit'])" size="small" type="primary" text @click="goSetPassword(scope.row)">设置密码</el-button>
-            </template>
-          </el-table-column>
+            <el-table-column v-else-if="item.value === 'setting' && includes(app.routeNames, ['user.role'])" :label="item.label" :width="item.width ?? undefined" align="center" fixed="right">
+              <template #default="scope">
+                <el-button v-if="includes(app.routeNames, ['user.role'])" size="small" type="primary" text @click="goSetRole(scope.row)">设置角色</el-button>
+                <el-button v-if="includes(app.routeNames, ['user.edit'])" size="small" type="primary" text @click="goSetPassword(scope.row)">设置密码</el-button>
+              </template>
+            </el-table-column>
+          </template>
         </template>
       </el-table>
   
