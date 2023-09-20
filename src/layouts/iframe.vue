@@ -1,8 +1,5 @@
 <template>
-  <div
-    class="frame"
-    v-loading="loading"
-  >
+  <div class="frame" v-loading="loading">
     <iframe :src="iframe" class="frame-iframe" ref="frameRef" />
   </div>
 </template>
@@ -12,7 +9,7 @@ import { useRoute } from "vue-router";
 import { ref, unref, onMounted, nextTick } from "vue";
 
 defineOptions({
-  name: "FrameView"
+  name: "FrameView",
 });
 
 const loading = ref(true);
@@ -56,7 +53,7 @@ onMounted(() => {
   z-index: 998;
   width: 100%;
   height: calc(100vh - var(--nav-bar-height));
-  
+
   .frame-iframe {
     box-sizing: border-box;
     width: 100%;

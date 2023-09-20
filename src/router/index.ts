@@ -1,8 +1,8 @@
 import { createRouter, createWebHistory, createWebHashHistory } from 'vue-router'
-import NProgress from "@/utils/progress"
+import NProgress from '@/utils/progress'
 import { getToken, removeToken } from '@/utils/auth'
 import { useUser } from '@/stores/user'
-const routes = [  
+const routes = [
   {
     path: '/login',
     name: 'login',
@@ -14,30 +14,30 @@ const routes = [
   }
 ]
 
-const { PROD, BASE_URL } = import.meta.env;
+const { PROD, BASE_URL } = import.meta.env
 
 const router = createRouter({
   history: PROD === true ? createWebHistory(BASE_URL) : createWebHashHistory(BASE_URL),
   routes: routes,
   strict: true,
   scrollBehavior(to, from, savedPosition) {
-    return new Promise(resolve => {
+    return new Promise((resolve) => {
       if (savedPosition) {
-        return savedPosition;
+        return savedPosition
       } else {
         if (from.meta.saveSrollTop) {
-          const top: number = document.documentElement.scrollTop || document.body.scrollTop;
-          resolve({ left: 0, top });
+          const top: number = document.documentElement.scrollTop || document.body.scrollTop
+          resolve({ left: 0, top })
         }
       }
-    });
+    })
   }
 })
 
 const whiteList = ['/login']
 
 router.beforeEach(async (to: AppRoute.ToRoute, _from, next) => {
-  NProgress.start();
+  NProgress.start()
 
   if (to.meta.title && !to.meta.link) {
     document.title = to.meta.title
@@ -71,13 +71,13 @@ router.beforeEach(async (to: AppRoute.ToRoute, _from, next) => {
         }
       } else {
         try {
-          const menus:Array<Record<string, any>> = await user.getUserInfo()
+          const menus: Array<Record<string, any>> = await user.getUserInfo()
           const accessAbility = user.setRoutes(router, menus)
           if (accessAbility) {
             next({ ...to, replace: true })
           } else {
             toRedirect()
-          } 
+          }
         } catch (error) {
           toRedirect()
         }
@@ -90,10 +90,10 @@ router.beforeEach(async (to: AppRoute.ToRoute, _from, next) => {
       toRedirect()
     }
   }
-});
+})
 
 router.afterEach(() => {
-  NProgress.done();
-});
+  NProgress.done()
+})
 
 export default router
