@@ -12,7 +12,7 @@
         <el-button type="primary" @click="fetchData">搜索</el-button>
       </div>
 
-      <el-table :data="tableData" class="w-full mt-5">
+      <el-table :data="tableData" class="w-full mt-5" :class="{'mb-[44px]': isFixed}" header-row-class-name="sticky top-[60px]" id="target">
         <template v-for="item in tableColumns" :key="item.value">
           <template v-if="item.show">
             <el-table-column v-if="item.value !== 'setting'" :label="item.label" prop="item.value" :width="item.width ?? undefined">
@@ -62,7 +62,8 @@
       </el-table>
 
       <el-pagination
-        class="mt-5"
+        class="w-full flex items-center h-[64px]"
+        :class="fixedClass"
         background
         hide-on-single-page
         layout="total, prev, pager, next"
@@ -106,11 +107,12 @@
 </template>
 
 <script setup lang="ts">
-import { ref, reactive, onBeforeMount } from "vue";
+import { ref, reactive, onBeforeMount, computed, type Ref } from "vue";
 import { useRouter } from "vue-router";
 import { useApp } from "@/stores/app";
 import { getUsers, setUserInfo } from "@/api/system/user";
 import { includes } from "@/utils/utils";
+import { useFixed } from '@/hooks/useFixed'
 
 interface UserReq extends PaginateReq {
   phone?: number;
@@ -118,6 +120,8 @@ interface UserReq extends PaginateReq {
 }
 
 const loading = ref<boolean>(false);
+
+const { ref:isFixed, fun:resize} = useFixed('target', 64)
 
 const router = useRouter();
 
@@ -166,6 +170,13 @@ const dialog = reactive({
   password: "",
 });
 
+const fixedClass = computed(() => {
+  if (isFixed && isFixed.value) {
+    return 'fixed bottom-0 el-bg-color z-50'
+  }
+  return ''
+})
+
 onBeforeMount(function () {
   req.page = 1;
 
@@ -206,6 +217,8 @@ function fetchData() {
       roles.value = [{ id: 0, title: "所有角色" }].concat(res.roles);
 
       loading.value = false;
+
+      setTimeout(resize, 500)
     })
     .catch(() => {
       loading.value = false;
