@@ -52,7 +52,6 @@ router.beforeEach(async (to: AppRoute.ToRoute, _from, next) => {
   const token = getToken()
   if (token) {
     if (to.path === '/login') {
-      console.log('to, to', to)
       if (to.query?.must) {
         next()
       } else {

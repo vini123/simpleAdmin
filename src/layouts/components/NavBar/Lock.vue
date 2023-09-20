@@ -46,3 +46,9 @@ const doUnLock = function() {
     })
 }
 </script>
+
+<style>
+.el-dialog {
+    border-radius: 10px;
+}
+</style>
