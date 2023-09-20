@@ -52,8 +52,13 @@ router.beforeEach(async (to: AppRoute.ToRoute, _from, next) => {
   const token = getToken()
   if (token) {
     if (to.path === '/login') {
-      next({ path: '/' })
-      NProgress.done()
+      console.log('to, to', to)
+      if (to.query?.must) {
+        next()
+      } else {
+        next({ path: '/' })
+        NProgress.done()
+      }
     } else {
       const user = useUser()
       if (user.accessAbility) {

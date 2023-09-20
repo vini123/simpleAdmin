@@ -67,3 +67,19 @@ export function setUserPassword(data:any) {
         data
     })
 }
+
+export function setUserLock(data:any) {
+    return request({
+        url: '/user/lock',
+        method: 'put',
+        data
+    })
+}
+
+export function checkUserLock(data:any) {
+    return request({
+        url: '/user/lock',
+        method: 'post',
+        data
+    })
+}

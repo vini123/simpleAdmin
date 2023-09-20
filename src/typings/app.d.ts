@@ -2,7 +2,8 @@ declare namespace AppRoute {
 
   interface ToRoute extends RouteLocationNormalized {
     meta: RouteMeta;
-    path: string
+    path: string,
+    query ?: Record<string, any>
   }
 
   interface InitRoutesData {

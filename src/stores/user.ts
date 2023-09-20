@@ -18,6 +18,7 @@ interface UserState {
     signature: string;
     roles: Array<UserRole>;
     curRole: string;
+    adminLock: boolean;
 }
 
 export const useUser = defineStore('user', {
@@ -33,7 +34,8 @@ export const useUser = defineStore('user', {
         gender: 0,
         signature: '',
         roles: [],
-        curRole: ''
+        curRole: '',
+        adminLock: false
     }),
     actions: {
         login(value:any) {
@@ -73,7 +75,7 @@ export const useUser = defineStore('user', {
                     if (!res) {
                         return reject('Verification failed, please Login again.')
                     }
-                    const keys:Array<string> = ['id', 'viewid', 'nickname', 'phone', 'avatar', 'email',  'gender', 'signature', 'roles', 'curRole']
+                    const keys:Array<string> = ['id', 'viewid', 'nickname', 'phone', 'avatar', 'email',  'gender', 'signature', 'roles', 'curRole', 'adminLock']
                     keys.forEach(key => {
                         if (Object.prototype.hasOwnProperty.call(res, key)) {
                             this.$patch({[key]: res[key]})
@@ -104,7 +106,7 @@ export const useUser = defineStore('user', {
                     return
                 }
                 
-                const keys:Array<string> = ['id', 'viewid', 'nickname', 'phone', 'avatar', 'email',  'gender', 'signature', 'roles', 'curRole']
+                const keys:Array<string> = ['id', 'viewid', 'nickname', 'phone', 'avatar', 'email',  'gender', 'signature', 'roles', 'curRole', 'adminLock']
                 keys.forEach(key => {
                     if (Object.prototype.hasOwnProperty.call(res, key)) {
                         this.$patch({[key]: res[key]})
@@ -113,7 +115,7 @@ export const useUser = defineStore('user', {
             })
         },
         setUserInfo(value:Record<string, any>) {
-            const keys:Array<string> = ['nickname', 'avatar', 'email',  'gender', 'signature', 'roles', 'curRole']
+            const keys:Array<string> = ['nickname', 'avatar', 'email',  'gender', 'signature', 'roles', 'curRole', 'adminLock']
             keys.forEach(key => {
                 if (Object.prototype.hasOwnProperty.call(value, key)) {
                     this.$patch({[key]: value[key]})
