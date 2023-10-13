@@ -16,7 +16,7 @@
             <div v-if="way == 1" class="flex flex-col items-center mb-5">
                 <div class="text-lg text-black/75 mb-4">微信扫码  安全登录</div>
                 <div class="flex relative w-[156px] h-[156px]">
-                    <div v-if="qrcode.key" class="flex justify-center items-center">
+                    <div v-if="qrcode.key" class="flex justify-center items-center w-full">
                         <el-image v-if="qrcode.path" :src="qrcode.path" class="w-[156px] h-[156px]" />
                         <span v-else class="text-black text-sm">生成小程序码失败</span>
                     </div>
