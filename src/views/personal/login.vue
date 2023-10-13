@@ -15,8 +15,11 @@
             </div>
             <div v-if="way == 1" class="flex flex-col items-center mb-5">
                 <div class="text-lg text-black/75 mb-4">微信扫码  安全登录</div>
-                <div class="flex relative">
-                    <el-image :src="qrcode.path" class="w-[156px] h-[156px]" />
+                <div class="flex relative w-[156px] h-[156px]">
+                    <div v-if="qrcode.path">
+                        <el-image :src="qrcode.path" class="w-[156px] h-[156px]" />
+                    </div>
+
                     <div v-if="qrcode.ttl < 0" class="flex flex-col items-center justify-center w-[156px] h-[156px] absolute z-10 bg-black/75">
                         <span class="text-white text-sm mb-5">小程序码已过期</span>
 
@@ -56,7 +59,7 @@ import type { Router, RouteLocationNormalizedLoaded } from 'vue-router'
 import type { FormInstance, FormRules } from 'element-plus'
 import { isPhone, isEmail } from '@/utils/validate'
 import { useUser } from '@/stores/user'
-import { getLoginQrcode, getLoginToken, getCaptcha } from '@/api/personal'
+import { getLoginQrcode, getCaptcha } from '@/api/personal'
 
 interface FormData {
     account?: string;
