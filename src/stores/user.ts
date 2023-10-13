@@ -1,7 +1,7 @@
 import { defineStore } from 'pinia'
 import type { Router } from 'vue-router'
 import { getToken, setToken, removeToken } from '@/utils/auth'
-import { login as userLogin, register as userRegister, getUserInfo } from '@/api/personal'
+import { login as userLogin, register as userRegister, getUserInfo, getLoginToken } from '@/api/personal'
 import { useApp } from './app'
 import initRoutes from './utils/router'
 
@@ -57,6 +57,22 @@ export const useUser = defineStore('user', {
     register(value: any) {
       return new Promise((resolve, reject) => {
         userRegister(value)
+          .then((res: Record<string, any>) => {
+            if (res && res['token']) {
+              setToken(res['token'])
+            } else {
+              reject('注册失败')
+            }
+            resolve('')
+          })
+          .catch(() => {
+            reject('注册失败')
+          })
+      })
+    },
+    qrcodeLogin(value:any) {
+      return new Promise((resolve, reject) => {
+        getLoginToken(value)
           .then((res: Record<string, any>) => {
             if (res && res['token']) {
               setToken(res['token'])

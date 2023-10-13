@@ -30,6 +30,24 @@ export function logout() {
     })
 }
 
+// 小程序码登录
+export function getLoginQrcode(data:any) {
+    return request({
+        url: '/login-qrcode',
+        method: 'post',
+        data
+    })
+}
+
+// 轮询获取 token
+export function getLoginToken(data:any) {
+    return request({
+        url: '/login-token',
+        method: 'get',
+        params: data
+    })
+}
+
 export function setUserRole(data:any) {
     return request({
         url: '/user/roles',

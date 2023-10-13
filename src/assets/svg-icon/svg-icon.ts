@@ -44,6 +44,12 @@ addCollection({
        },
        'drag': {
             body: '<svg stroke="currentColor" viewBox="0 0 1024 1024" xmlns="http://www.w3.org/2000/svg" aria-hidden="true"><path d="M298.688 192a64 64 0 1 0 128 0 64 64 0 0 0-128 0z m298.624 0a64 64 0 1 0 128 0 64 64 0 0 0-128 0zM298.688 512a64 64 0 1 0 128 0 64 64 0 0 0-128 0z m298.624 0a64 64 0 1 0 128 0 64 64 0 0 0-128 0z m-298.624 320a64 64 0 1 0 128 0 64 64 0 0 0-128 0z m298.624 0a64 64 0 1 0 128 0 64 64 0 0 0-128 0z" p-id="4076"></path></svg>'
+       },
+       'qrcode': {
+        'body': '<path d="M0,11H11V0H0V11ZM2,2h7v7H2V2Zm2,2h3v3H4V4ZM24,0H13V11h11V0Zm-2,9h-7V2h7v7Zm-2-2h-3V4h3v3ZM0,24H11V13H0v11ZM2,15h7v7H2v-7Zm2,2h3v3H4v-3Zm13-4v4h-4v-4h4Zm0,4h3v3h-3v-3Zm-4,3h4v4h-4v-4Zm11-7v4h-4v-4h4Z"/>'
+       },
+       'desktop': {
+        'body': '<path d="M24,19V4a3,3,0,0,0-3-3H3A3,3,0,0,0,0,4V19H11v2H6v2H18V21H13V19ZM3,3H21a1,1,0,0,1,1,1v9H2V4A1,1,0,0,1,3,3ZM2,15H22v2H2Z"/>'
        }
    },
    width: 24,
